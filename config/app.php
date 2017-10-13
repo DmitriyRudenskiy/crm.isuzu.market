@@ -181,7 +181,6 @@ return [
          */
         TwigBridge\ServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
-        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
 
     ],
 
@@ -232,7 +231,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Twig' => TwigBridge\Facade\Twig::class,
-        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
     ],
 
 ];
