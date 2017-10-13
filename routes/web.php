@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return 'Hello World';
+Route::group(['middleware' => 'web', 'namespace' => 'Admin'], function () {
+    Route::post('login', 'LoginController@login');
+    Route::get('/', 'LoginController@showLoginForm')->name('login');
+    Route::get('logout', 'LoginController@logout')->name('logout');
 });
-
-
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin_'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');

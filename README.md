@@ -5,8 +5,6 @@ php vendor/bin/phpunit
 php artisan key:generate
 php artisan migrate
 php artisan create:user
-php artisan db:seed --class=VariantsTableSeeder
-php artisan db:seed --class=AddPriceToVariantsTableSeeder
 
 ## Work
 docker run --name php-crm.isuzu.market \
@@ -18,3 +16,6 @@ docker run --name php-crm.isuzu.market \
 
 ## Run server
 php -S 0.0.0.0:8000 -t public/
+
+## Create database
+CREATE DATABASE IF NOT EXISTS crm_isuzu_market;
