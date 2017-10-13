@@ -1,0 +1,81 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Редактирование{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7 col-md-10">
+            <h1>Документ [{{ doc.id }}] {{ doc.name }}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7 col-md-10">
+
+            {% if list is empty %}
+                <div class="well">
+                    <h2>Импорт</h2>
+
+                    <form action="{{ route('admin_docs_import') }}" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{ doc.id }}">
+                        <input type="file" name="file" onchange="this.form.submit()">
+                    </form>
+                </div>
+            {% endif %}
+
+            <table class="table table-hover table-strip">
+                <thead>
+                <tr>
+                    <th>!</th>
+                    <th>Приоритет</th>
+                    <th>Название</th>
+                    <th>Значение</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <tr>
+                    <form action="{{ route('admin_docs_insert') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="doc_id" value="{{ doc.id }}">
+                    <th>&nbsp;</th>
+                        <td><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" class="form-control" name="position" value="100" required></td>
+                        <td><input type="text" class="form-control" name="key" value="" required></td>
+                        <td><input type="text" class="form-control" name="value" value="" required></td>
+                    <th><button type="submit" class="btn btn-primary btn-block">добавить</button></th>
+                    </form>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in list %}
+                <tr {% if item.visible < 1 %}class="danger"{% endif %}>
+                    <td>
+                        {% if item.visible > 0 %}
+                            <a href="{{ route('admin_docs_params_hide', {'id': item.id}) }}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                        {% else %}
+                            <a href="{{ route('admin_docs_params_show', {'id': item.id}) }}"><span class="glyphicon glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>
+                        {% endif %}
+                    </td>
+                    <form action="{{ route('admin_docs_update') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{ item.id }}">
+                    <td style="width: 5%"><input type="text" class="form-control" name="position" value="{{ item.position }}" required></td>
+                    <td><input type="text" class="form-control" name="key" value="{{ item.key }}" required></td>
+                    <td><input type="text" class="form-control" name="value" value="{{ item.value }}" required></td>
+                    <td style="width: 10%">
+                        <button type="submit" class="btn btn-success btn-block">Сохранить</button>
+                    </td>
+                    </form>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function(){
+
+        });
+    </script>
+{% endblock %}

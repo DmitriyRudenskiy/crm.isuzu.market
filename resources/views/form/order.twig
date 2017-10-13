@@ -1,0 +1,92 @@
+{% extends "layouts.app" %}
+
+{% block title %}Создать новое "Преимущество"{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 well">
+            <h1>{{ variant.getFullTitle() }}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <form action="{{ route('proposal_upload_image') }}" method="post" enctype="multipart/form-data" style="display: none">
+            {{ csrf_field() }}
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="file" name="image" onchange="this.form.submit()">
+        </form>
+
+        <form method="post" action="{{ route('download_pdf') }}">
+            {{ csrf_field() }}
+            <input type="hidden" name="variant_id" value="{{ variant.id }}">
+        <div class="col-md-7">
+            <h2>Шаг 1</h2>
+            <div class="row">
+
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="/img/service/add_image.png" alt="..." id="upload_image" style="padding: 12px 0; cursor: pointer">
+                        <p class="text-success text-center">Добавить</p>
+                    </div>
+                </div>
+
+                {% for item in images %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="checkbox text-center" style="height: 150px; overflow: hidden">
+                        <label>
+                            <input type="radio" name="image_id" value="{{ item.id }}" required> Выбрать ({{ item.id }})
+                            <div class="thumbnail">
+                                <img src="/img/cover/m_{{ item.hash }}.jpg" alt="...">
+                            </div>
+
+                        </label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <h2>Шаг 2</h2>
+
+                <div class="form-group">
+                    <label>Цена</label>
+                    <p class="form-control-static">{{ variant.price }}</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Стоимость полнокомплектного автомобиля</label>
+                    <input type="text" class="form-control" name="price" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Цена с бонусом</label>
+                    <input type="text" class="form-control" name="price_bonus" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Третья страница (Документ)</label>
+                    <select class="form-control" name="doc_id">
+                        <option value="">--</option>
+                        {% for item in docs %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">Скачать PDF</button>
+        </div>
+
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('#upload_image').click(function () {
+                $('[type="file"]').click();
+            });
+        });
+    </script>
+{% endblock %}

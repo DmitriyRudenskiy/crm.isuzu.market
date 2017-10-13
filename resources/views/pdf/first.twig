@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>Conforming HTML 4.01 Strict Template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+    <style type="text/css">
+        html {
+            color: #000;
+            background: #FFF
+        }
+
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+            margin: 0;
+            padding: 0
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        fieldset, img {
+            border: 0
+        }
+
+        address, caption, cite, code, dfn, em, strong, th, var {
+            font-style: normal;
+            font-weight: normal
+        }
+
+        ol, ul {
+            list-style: none
+        }
+
+        * {
+            font-size: 8px !important;
+        }
+
+        .table_head th, .table_head td {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .table_head th {
+            font-weight: 600;
+        }
+
+        .table_head td {
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- header -->
+    <table style="width: 100%; margin-top: 50px">
+        <tr>
+            <td>
+                <img src="{{ public_path }}/logo.png">
+            </td>
+            <td style="width: 55%">
+                <p>ООО «ТРАК-ПРАЙС»</p>
+                <p>630099, г. Новосибирск, ул.Военная, 4, ОФ. 305</p>
+            </td>
+        </tr>
+    </table>
+
+    <!-- image -->
+    <div style="padding-top: 24px; padding-bottom: 12px;">
+        <img src="{{ image_file }}" style="width: 100%; border: 0">
+    </div>
+
+    <div style="background: red; color: #fff; margin-bottom: 12px; padding-top:15px; padding-bottom: 15px; text-align: center;">
+        <h1>Коммерческое предложение</h1>
+        <p>от {{ "now"|date("d M Y") | replace({"Jan": "января", "Feb": "февраля",  "Mar": "марта",  "Apr": "апреля",  "May":  "мая", "Jun": "июня",  "Jul": "июля",  "Aug": "августа",  "Sep": "сентября", "Oct": "октября",  "Nov": "ноября",  "Dec":  "декабря"}) }} года</p>
+    </div>
+
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <thead>
+        <tr class="table_head">
+            <th>Марка</th>
+            <th>Стоимость<br>полнокомплектного<br>автомобиля, руб</th>
+            <th>Кол-во<br>автомобилей</th>
+            <th style="border-right: 1px solid #000;">Стоимость итого<br>
+                с учетом <span style="color: red; font-weight: 600;">СКИДКИ</span><br>и НДС, руб<br>(доставка до
+                кузовостроителя)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table_head">
+            <td>{{ name }}</td>
+            <td>{{ price }},00</td>
+            <td>1</td>
+            <td style="border-right: 1px solid #000;"><span style="color: red; font-size: 140%; font-weight: 600;">{{ price_bonus }},00</span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="width: 100%; margin-top: 24px">
+        <ul>
+            <li>1. Условия оплаты и сроки поставок оговариваются дополнительно.</li>
+            <li>2. Гарантийные обязательства и сервис:</li>
+            <li>Продавец берет на себя выполнение гарантийных обязательств в отношении
+                механизмов при условии правильной технической эксплуатации и обслуживания товара
+                в течение следующих сроков:</li>
+            <li>На шасси – 36 месяцев или 200 000 км пробега – что наступит раньше.
+                Сервис осуществляется на дилерских станциях ISUZU.
+                Данное коммерческое предложение имеет ограниченный срок действия -
+                7 календарных дней.
+            </li>
+        </ul>
+
+    </div>
+</body>
+</html>

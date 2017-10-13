@@ -1,0 +1,26 @@
+{% extends "layouts.app" %}
+
+{% block title %}Создать новое "Преимущество"{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <p>Выберете модификацию для которой делается коммерческое предложение!</p>
+
+            <form method="get" action="{{ route('proposal_order') }}">
+
+                <div class="form-group">
+                    <label>Название</label>
+                    <select class="form-control" name="id" required>
+                        <option value="">--</option>
+                        {% for item in list %}
+                            <option value="{{ item.id }}">{{ item.getFullTitle() }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">Выбрать</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
