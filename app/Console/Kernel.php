@@ -17,9 +17,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        CreateFirstUser::class,
-        FillingСities::class,
-        LoadСities::class
+        CreateFirstUser::class
     ];
 
     /**
