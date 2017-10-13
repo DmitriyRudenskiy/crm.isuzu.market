@@ -1,15 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
 
 Route::group(['middleware' => 'web', 'namespace' => 'Admin'], function () {
-    Route::post('login', 'LoginController@login');
+    Route::post('login', 'LoginController@login')->name('login_check');
     Route::get('/', 'LoginController@showLoginForm')->name('login');
     Route::get('logout', 'LoginController@logout')->name('logout');
 });
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin_'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
+
+    Route::group(['prefix' => 'phones', 'as' => 'phones_'], function () {
+        Route::get('/', 'PhonesController@index')->name('index');
+        Route::get('add', 'PhonesController@add')->name('add');
+        Route::post('insert', 'PhonesController@insert')->name('insert');
+    });
 
     /*
     Route::get('/info', 'DashboardController@info')->name('info');

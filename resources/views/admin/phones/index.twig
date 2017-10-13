@@ -1,0 +1,52 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Телефоны{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7 col-md-12">
+            <h1>Телефоны (Всего: {{ list.total }})</h1>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <form class="form-inline well">
+                        <div class="form-group">
+                            <label class="sr-only">Номер (или часть)</label>
+                            <input type="text" name="q" class="form-control" value="{{ email }}" placeholder="Название города">
+                        </div>
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Выбрать</button>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{ route('admin_phones_add') }}" class="btn btn-success btn-block">Добавить</a>
+                </div>
+            </div>
+
+            {% if list.total > 0 %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Номер</th>
+                    <th>Имя</th>
+                    <th>Источник</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in list %}
+                    <tr>
+                        <td>{{ item.created_at | date ("d.m") }}</td>
+                        <td>{{ item.number }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.source }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ list.render() | raw }}
+            {% else %}
+                <div class="alert alert-danger" role="alert">Нет не одного телефонного номера</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
