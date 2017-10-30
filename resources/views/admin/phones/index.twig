@@ -25,19 +25,21 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Дата</th>
+                    <th>Добавлен</th>
+                    <th>Обработан</th>
                     <th>Номер</th>
-                    <th>Имя</th>
                     <th>Источник</th>
+                    <th>Область</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for item in list %}
                     <tr>
-                        <td>{{ item.created_at | date ("d.m") }}</td>
+                        <td>{{ item.created_at | date ("d.m H:i") }}</td>
+                        <td>{% if call is empty %}<span class="text-success">новый</span>{% else %}{{ item.call | date ("d.m H:i") }}{% endif %}</td>
                         <td>{{ item.number }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.source }}</td>
+                        <td>{{ item.vendor }}</td>
+                        <td>{{ item.group_city }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

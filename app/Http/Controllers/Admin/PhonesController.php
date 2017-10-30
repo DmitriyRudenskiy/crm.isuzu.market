@@ -24,30 +24,69 @@ class PhonesController extends Controller
         );
     }
 
+    public function view($id, Request $request, PhonesRepository $repository)
+    {
+        $phone = $repository->find($id);
+        $error = $request->get("error", false);
+
+        return view(
+            'admin.phones.view',
+            [
+                "phone" => $phone,
+                "error" => $error
+            ]
+        );
+    }
+
     public function add()
     {
         return view('admin.phones.add');
     }
 
-    public function insert(Request $request, PhonesRepository $repository, Phone $phoneService, Telegram $telegram)
+    public function insert(Request $request, PhonesRepository $repository, Phone $phoneService)
     {
-        $phone = $phoneService->parsing($request->get("phone"));
-        $source = $request->get("source");
+        $data = array_map(
+            'trim',
+            $request->only(
+                [
+                    "vendor",
+                    "group_city",
+                    "city",
+                    "is_sib",
+                    "comment"
+                ]
+            )
+        );
 
+        $data["is_sib"] = !empty($data["is_sib"]);
+
+        $phone = $phoneService->parsing($request->get("phone"));
+
+        // неправильный номер телефона
         if (!$phoneService->isValid($phone)) {
             throw new \InvalidArgumentException();
         }
 
-        if ($repository->has($phone)) {
-            return redirect()->route('admin_phones_index', ['error' => 'has-' . $phone]);
+        $data["number"] = $phone;
+
+        $entity = $repository->get($phone);
+
+        if ($entity !== null) {
+            return redirect()->route('admin_phones_view', ["id" => $entity->id, "error" => true]);
         }
 
-        $status = $repository->add($phone, $source);
+        $repository->add($data);
 
-        if ($status > 0) {
-            $telegram->send('>>> Добавлен новый телефон: ' . $phone);
-        }
+        $this->sendMessageToTelegramm($data);
 
-        return redirect()->route('admin_phones_index');
+        return redirect()->route('admin_phones_index', ["success" => true]);
+    }
+
+    protected function sendMessageToTelegramm($data)
+    {
+        $message = view("admin.telegram.notification", $data)->render();
+
+        $telegram = new Telegram();
+        return $telegram->send($message);
     }
 }

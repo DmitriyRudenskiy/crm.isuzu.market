@@ -35,16 +35,17 @@ class PhonesRepository extends BaseRepository
         return $phone !== null;
     }
 
-    public function add($phone, $source)
+    public function get($text)
     {
-        $model = new Phones();
-        $model->number = $phone;
-        $model->source = $source;
+        return Phones::where('number', $text)->first();
+    }
 
+    public function add(array $data)
+    {
         try {
-            $model->save();
+            $model = Phones::forceCreate($data);
         } catch (\Exception $e) {
-
+            return null;
         }
 
         return $model->id;

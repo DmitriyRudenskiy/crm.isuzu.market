@@ -14,7 +14,11 @@ class Phones extends Model
      * @var array
      */
     protected $fillable = [
-        'number',
-        'source'
+        "number",
+        "vendor",
+        "group_city",
+        "city",
+        "is_sib",
+        "comment"
     ];
 }

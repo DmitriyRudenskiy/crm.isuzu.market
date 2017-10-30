@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('/', 'PhonesController@index')->name('index');
         Route::get('add', 'PhonesController@add')->name('add');
         Route::post('insert', 'PhonesController@insert')->name('insert');
+        Route::get('view/{id}', 'PhonesController@view')->name('view');
     });
 
     /*

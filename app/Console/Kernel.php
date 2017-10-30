@@ -2,8 +2,6 @@
 
 namespace App\Console;
 
-use App\Console\City\FillingСities;
-use App\Console\City\LoadСities;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Foundation\Inspiring;
@@ -17,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        CreateFirstUser::class
+        CreateFirstUser::class,
+        ParserSipuni::class
     ];
 
     /**
