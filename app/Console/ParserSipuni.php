@@ -59,7 +59,7 @@ class ParserSipuni extends Command
 
                 $this->info(
                     sprintf(
-                        "Find entity for number: %s status: %s",
+                        "Find entity for number: <%s> status: %s",
                         $key,
                         !empty($entity->id) ? $entity->id : "not find"
                     )
@@ -71,9 +71,9 @@ class ParserSipuni extends Command
                         $entity->save();
 
                         $this->sendMessageToTelegram($entity);
-                    } else {
-                        $this->info(sprintf("\tFind number %s", $entity->number));
                     }
+
+                    $this->info(sprintf("\tFind number %s", $entity->number));
                 }
             }
         }
