@@ -77,12 +77,12 @@ class PhonesController extends Controller
 
         $repository->add($data);
 
-        $this->sendMessageToTelegramm($data);
+        $this->sendMessageToTelegram($data);
 
         return redirect()->route('admin_phones_index', ["success" => true]);
     }
 
-    protected function sendMessageToTelegramm($data)
+    protected function sendMessageToTelegram($data)
     {
         $message = view("admin.telegram.notification", $data)->render();
 
