@@ -31,7 +31,6 @@ class ParserSipuni extends Command
             "truck" => [env('SIPUNI_TRUCK_USER'), env('SIPUNI_TRUCK_KEY')]
         ];
 
-
         foreach ($list as $key => $value) {
             $query = new Query($value[0], $value[1]);
             $result = $loader->setUrl(self::URL)->get($query);
@@ -43,12 +42,15 @@ class ParserSipuni extends Command
             $data = [];
 
             foreach ($csv as $value) {
-                if ($value[0] == "Исходящий" && $value[1] == "Отвечен") {
+                if (!empty($value[5]) && $value[0] == "Исходящий" && $value[1] == "Отвечен") {
                     $phone = $service->parsing($value[5]);
 
-                    if (!empty($phone) && !isset($data[$phone])) {
+                    if (!empty($phone) && $service->isValid($phone) && !isset($data[$phone])) {
+
+
+
                         $date = \DateTime::createFromFormat('d.m.Y H:i:s', $value[2]);
-                        $data[$phone] =  $date;
+                        $data[$phone] = $date;
                     }
                 }
             }
