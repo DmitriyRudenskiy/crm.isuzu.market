@@ -36,7 +36,7 @@
                 {% for item in list %}
                     <tr>
                         <td>{{ item.created_at | date ("d.m H:i") }}</td>
-                        <td>{% if call is empty %}<span class="text-success">новый</span>{% else %}{{ item.call | date ("d.m H:i") }}{% endif %}</td>
+                        <td>{% if item.call is empty %}<span class="text-success">новый</span>{% else %}{{ item.call | date("d.m H:i") }}{% endif %}</td>
                         <td>{{ item.number }}</td>
                         <td>{{ item.vendor }}</td>
                         <td>{{ item.group_city }}</td>
