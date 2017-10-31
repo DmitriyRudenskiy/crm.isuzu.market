@@ -27,12 +27,12 @@ class ParserSipuni extends Command
     public function handle(Loader $loader, Phone $service, PhonesRepository $repository)
     {
         $list = [
-            [env('SIPUNI_FURA_USER'), env('SIPUNI_FURA_KEY')],
-            [env('SIPUNI_TRUCK_USER'), env('SIPUNI_TRUCK_KEY')]
+            "fura" => [env('SIPUNI_FURA_USER'), env('SIPUNI_FURA_KEY')],
+            "truck" => [env('SIPUNI_TRUCK_USER'), env('SIPUNI_TRUCK_KEY')]
         ];
 
 
-        foreach ($list as $value) {
+        foreach ($list as $key => $value) {
             $query = new Query($value[0], $value[1]);
             $result = $loader->setUrl(self::URL)->get($query);
 
@@ -53,14 +53,20 @@ class ParserSipuni extends Command
                 }
             }
 
+            $this->info(sprintf("Find for api %s, all %d", $key, sizeof($data)));
+
             foreach ($data as $key => $value) {
                 $entity = $repository->get($key);
 
-                if ($entity !== null && $entity->id > 0 && empty($entity->call)) {
-                    $entity->call = $value;
-                    $entity->save();
+                if ($entity !== null) {
+                    if (empty($entity->call)) {
+                        $entity->call = $value;
+                        $entity->save();
 
-                    $this->sendMessageToTelegram($entity);
+                        $this->sendMessageToTelegram($entity);
+                    } else {
+                        $this->info(sprintf("\tFind number %s", $entity->number));
+                    }
                 }
             }
         }
