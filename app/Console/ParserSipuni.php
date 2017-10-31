@@ -46,9 +46,6 @@ class ParserSipuni extends Command
                     $phone = $service->parsing($value[5]);
 
                     if (!empty($phone) && $service->isValid($phone) && !isset($data[$phone])) {
-
-
-
                         $date = \DateTime::createFromFormat('d.m.Y H:i:s', $value[2]);
                         $data[$phone] = $date;
                     }
@@ -58,6 +55,9 @@ class ParserSipuni extends Command
             $this->info(sprintf("Find for api %s, all %d", $key, sizeof($data)));
 
             foreach ($data as $key => $value) {
+
+                $this->info(sprintf("Find entity for number: %s", $key));
+
                 $entity = $repository->get($key);
 
                 if ($entity !== null) {
