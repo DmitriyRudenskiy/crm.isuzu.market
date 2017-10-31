@@ -57,6 +57,8 @@ class ParserSipuni extends Command
             foreach ($data as $key => $value) {
                 $entity = $repository->get($key);
 
+                var_dump($key, $entity);
+
                 $this->info(
                     sprintf(
                         "Find entity for number: <%s> status: %s",
