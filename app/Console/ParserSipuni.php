@@ -55,7 +55,8 @@ class ParserSipuni extends Command
             $this->info(sprintf("Find for api %s, all %d", $key, sizeof($data)));
 
             foreach ($data as $key => $value) {
-                $entity = $repository->get($key);
+                $phone = (string)$key;
+                $entity = $repository->get($phone);
 
                 if ($entity !== null) {
                     if (empty($entity->call)) {

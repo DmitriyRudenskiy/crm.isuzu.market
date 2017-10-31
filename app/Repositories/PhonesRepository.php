@@ -30,7 +30,7 @@ class PhonesRepository extends BaseRepository
 
     public function has($text)
     {
-        $phone = Phones::where('number', (string)$text)->first();
+        $phone = Phones::where('number', $text)->first();
 
         return $phone !== null;
     }
