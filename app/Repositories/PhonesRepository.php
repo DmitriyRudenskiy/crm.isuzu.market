@@ -50,4 +50,11 @@ class PhonesRepository extends BaseRepository
 
         return $model->id;
     }
+
+    public function getNew()
+    {
+        return $this->scopeQuery(function($query){
+            return $query->orderBy('id','asc');
+        })->findWhere(['call' => null]);
+    }
 }

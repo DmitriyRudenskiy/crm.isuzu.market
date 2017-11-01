@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
+Route::get('/tJEqL3LABZwq', 'IndexController@index')->name('logout');
 
 Route::group(['middleware' => 'web', 'namespace' => 'Admin'], function () {
     Route::post('login', 'LoginController@login')->name('login_check');
