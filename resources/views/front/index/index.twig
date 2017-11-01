@@ -31,7 +31,7 @@
                     <tr>
                         <td>+7{{ item.number }}</td>
                         <td>{{ item.created_at | date ("d.m.Y H:i") }}</td>
-                        <td>{{ item.vendor }}</td>
+                        <td>{% if item.vendor is not empty %}{{ item.vendor }}{% else %}не указан{% endif %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
