@@ -70,6 +70,8 @@ class ParserSipuni extends Command
                 }
             }
         }
+
+        //
     }
 
     protected function sendMessageToTelegram($data)

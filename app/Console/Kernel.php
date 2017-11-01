@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         CreateFirstUser::class,
-        ParserSipuni::class
+        ParserSipuni::class,
+        RemindToCall::class
     ];
 
     /**
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('parser:sipuni')->hourly();
+        $schedule->command('remind:call')->hourly();
     }
 
     /**

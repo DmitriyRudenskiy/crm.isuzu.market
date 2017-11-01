@@ -19,3 +19,7 @@ php -S 0.0.0.0:8000 -t public/
 
 ## Create database
 CREATE DATABASE IF NOT EXISTS crm_isuzu_market;
+
+# напоминание о звонке
+
+# проверка звонков у цифровой телефонии
