@@ -41,6 +41,12 @@ class RemindToCall extends Command
 
     protected function sendMessageToTelegram($data)
     {
+        $interval = (new \DateTime())->diff(
+            \DateTime::createFromFormat('Y-m-d H:i:s', $data->created_at)
+        );
+
+        $data->diff = ($interval->format('%a') * 24 + $interval->format('%h')) * 60 + $interval->format('%i');
+
         $message = view("admin.telegram.remind", $data)->render();
 
         return (new Telegram())->send($message);
