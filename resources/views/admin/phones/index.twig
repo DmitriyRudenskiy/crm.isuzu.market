@@ -28,8 +28,8 @@
                     <th>Добавлен</th>
                     <th>Обработан</th>
                     <th>Номер</th>
-                    <th>Источник</th>
-                    <th>Область</th>
+                    <th>Источник / Область</th>
+                    <th>Примечание</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,8 +38,11 @@
                         <td>{{ item.created_at | date ("d.m H:i") }}</td>
                         <td class="text-nowrap">{% if item.call is empty %}<span class="text-success">новый</span>{% else %}{{ item.call | date("d.m H:i") }}{% endif %}</td>
                         <td>{{ item.number }}</td>
-                        <td>{{ item.vendor }}</td>
-                        <td>{{ item.group_city }}</td>
+                        <td>
+                            <p>{{ item.vendor }}</p>
+                            <p>{{ item.group_city }}</p>
+                        </td>
+                        <td>{{ item.comment }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
