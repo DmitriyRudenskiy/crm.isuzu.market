@@ -23,3 +23,5 @@ CREATE DATABASE IF NOT EXISTS crm_isuzu_market;
 # напоминание о звонке
 
 # проверка звонков у цифровой телефонии
+
+* * * * * php /php/crm.isuzu.market/artisan schedule:run >> /dev/null 2>&1
