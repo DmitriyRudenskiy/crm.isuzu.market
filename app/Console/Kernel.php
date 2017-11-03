@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         CheckMessage::class,
         CreateFirstUser::class,
+        GetIncomingCalls::class,
         ParserSipuni::class,
         RemindToCall::class
     ];
@@ -32,6 +33,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('parser:sipuni')->hourly();
         $schedule->command('remind:call')->hourly();
         $schedule->command('check:message')->everyFiveMinutes();
+        $schedule->command('incoming:calls')->everyFiveMinutes();
     }
 
     /**
