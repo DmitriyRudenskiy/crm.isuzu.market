@@ -39,7 +39,7 @@ class GetIncomingCalls extends Command
 
                 $date = null;
 
-                if ($value[1] == "Не отвечен") {
+                if ($value[1] != "Не отвечен") {
                     $date = \DateTime::createFromFormat('d.m.Y H:i:s', $value[2]);
                 }
 
@@ -61,10 +61,8 @@ class GetIncomingCalls extends Command
         $model->group_city = ' ';
         $model->save();
 
-
         $message = view("admin.telegram.import", $model)->render();
 
         return (new Telegram())->send($message);
     }
-
 }
