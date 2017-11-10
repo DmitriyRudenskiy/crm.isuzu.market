@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Repositories\PhonesRepository;
+use App\Repositories\RegionsRepository;
+use App\Service\GetRegionApi;
 use App\Service\Phone;
 use App\Service\Telegram;
 use Illuminate\Routing\Controller;
@@ -43,16 +45,17 @@ class PhonesController extends Controller
         return view('admin.phones.add');
     }
 
-    public function insert(Request $request, PhonesRepository $repository, Phone $phoneService)
+    public function insert(Request $request,
+                           PhonesRepository $repository,
+                           RegionsRepository $regionsRepository,
+                           Phone $phoneService,
+                           GetRegionApi $regionService)
     {
         $data = array_map(
             'trim',
             $request->only(
                 [
                     "vendor",
-                    "group_city",
-                    "city",
-                    "is_sib",
                     "comment"
                 ]
             )
@@ -74,6 +77,17 @@ class PhonesController extends Controller
         if ($entity !== null) {
             return redirect()->route('admin_phones_view', ["id" => $entity->id, "error" => true]);
         }
+
+        $regionName = $regionService->get($phone);
+
+        $region = $regionsRepository->get($regionName);
+
+        if ($region === null) {
+            $region = $regionsRepository->add($regionName);
+        }
+
+        $data["group_city"] = "-";
+        $data["region_id"] = $region->id;
 
         $repository->add($data);
 

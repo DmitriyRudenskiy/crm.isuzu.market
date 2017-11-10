@@ -25,3 +25,6 @@ CREATE DATABASE IF NOT EXISTS crm_isuzu_market;
 # проверка звонков у цифровой телефонии
 
 * * * * * php /php/crm.isuzu.market/artisan schedule:run >> /dev/null 2>&1
+
+// api для определения номера телефона
+tests/Unit/GetRegionApiTest.php

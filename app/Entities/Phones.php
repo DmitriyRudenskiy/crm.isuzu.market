@@ -16,9 +16,7 @@ class Phones extends Model
     protected $fillable = [
         "number",
         "vendor",
-        "group_city",
-        "city",
-        "is_sib",
+        "region_id",
         "comment"
     ];
 }
