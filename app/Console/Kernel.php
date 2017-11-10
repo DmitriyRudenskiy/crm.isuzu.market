@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         CheckMessage::class,
         CreateFirstUser::class,
+        FillEmptyRegions::class,
         GetIncomingCalls::class,
         ParserSipuni::class,
         RemindToCall::class
