@@ -28,10 +28,10 @@ class RegionsRepository extends BaseRepository
 
     public function getCountPhones()
     {
-        $sql = "SELECT r.name, COUNT(*) phones
-                FROM regions r
-                INNER JOIN phones p ON p.region_id=r.id
-                GROUP BY p.region_id
+        $sql = "SELECT regions.name, COUNT(*) phones
+                FROM regions
+                INNER JOIN phones ON phones.region_id=regions.id
+                GROUP BY phones.region_id
                 ORDER BY phones desc;";
 
         $results = DB::select( DB::raw($sql));
