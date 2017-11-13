@@ -21,10 +21,10 @@ class InfoController extends Controller
         }, $list);
 
         $value = array_map(function ($row) {
-            return $row->phones;
+            return (int)$row->phones;
         }, $list);
 
-        dd([$categories, $value]);
+        //dd([$categories, $value]);
 
         return view(
             'admin.info.region',
