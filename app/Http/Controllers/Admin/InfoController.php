@@ -16,6 +16,8 @@ class InfoController extends Controller
     {
         $list = $repository->getCountPhones();
 
+        dd($list);
+
         $categories = array_map(function ($row) {
             return $row->name;
         }, $list);
