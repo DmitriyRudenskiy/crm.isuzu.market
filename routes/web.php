@@ -20,6 +20,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('view/{id}', 'PhonesController@view')->name('view');
     });
 
+    Route::group(['prefix' => 'info', 'as' => 'info_'], function () {
+        Route::get('/region', 'InfoController@region')->name('region');
+        Route::get('/phones/day', 'InfoController@phone')->name('phones_day');
+    });
+
+
+
     /*
     Route::get('/info', 'DashboardController@info')->name('info');
 
