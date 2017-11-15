@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Entities\Phones;
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class PhonesRepository extends BaseRepository
@@ -56,5 +57,17 @@ class PhonesRepository extends BaseRepository
         return $this->scopeQuery(function($query){
             return $query->orderBy('id','asc');
         })->findWhere(['call' => null]);
+    }
+
+    public function getPhonesInDay()
+    {
+        $sql = "SELECT DATE_FORMAT(p.created_at, '%Y-%m-%d') day, COUNT(*) phones
+                FROM phones p
+                GROUP BY DATE_FORMAT(p.created_at, '%Y-%m-%d')
+                ORDER BY DATE_FORMAT(p.created_at, '%Y-%m-%d');";
+
+        $results = DB::select( DB::raw($sql));
+
+        return $results;
     }
 }

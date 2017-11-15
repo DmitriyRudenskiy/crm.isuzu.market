@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 class InfoController extends Controller
 {
-
     public function region(RegionsRepository $repository)
     {
         $list = $repository->getCountPhones();
@@ -31,6 +30,29 @@ class InfoController extends Controller
             [
                 'categories' => $categories,
                 'value' => $value
+            ]
+        );
+    }
+
+    public function day(PhonesRepository $repository)
+    {
+        $list = $repository->getPhonesInDay();
+
+        $categories = [];
+        $items = [];
+
+        foreach ($list as $value) {
+            $date = $date = \DateTime::createFromFormat('Y-m-d', $value->day);
+
+            $categories[] = $date->format('d.m');
+            $items[] = (int)$value->phones;
+        }
+
+        return view(
+            'admin.info.days',
+            [
+                'categories' => $categories,
+                'value' => $items
             ]
         );
     }

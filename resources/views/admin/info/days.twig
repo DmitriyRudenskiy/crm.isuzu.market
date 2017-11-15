@@ -1,0 +1,56 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Телефоны{% endblock %}
+{% block content %}
+    <style>
+        .highcharts-button, .highcharts-credits {
+            display: none;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h1>Активность в регионах</h1>
+
+
+
+            <div id="container" style="width: 100%; height: 300px"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                type: 'line'
+            },
+            title: null,
+            xAxis: {
+                categories: {{ categories | json_encode | raw }}
+            },
+            yAxis: {
+                min: 0,
+                tickInterval: 1,
+                title: ''
+            },
+            legend: false,
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            series: [{
+                data: {{ value | json_encode | raw }}
+            }]
+        });
+    </script>
+
+{% endblock %}
+

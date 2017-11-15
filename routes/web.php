@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
 
     Route::group(['prefix' => 'info', 'as' => 'info_'], function () {
         Route::get('/region', 'InfoController@region')->name('region');
-        Route::get('/phones/day', 'InfoController@phone')->name('phones_day');
+        Route::get('/phones/days', 'InfoController@day')->name('phones_days');
     });
 
 
