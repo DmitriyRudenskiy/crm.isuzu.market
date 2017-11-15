@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Types extends Model
 {
-    protected $table = 'telegram';
+    protected $table = "car_types";
 
     protected $fillable = [
-        "message_id",
-        "update_id",
-        "message",
-        "added_on"
+        "visible",
+        "position",
+        "title",
+        "image"
     ];
 
     public $timestamps = false;
