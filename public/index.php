@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("Asia/Krasnoyarsk");
+
 require __DIR__.'/../bootstrap/autoload.php';
 
 $app = require_once __DIR__.'/../bootstrap/app.php';
