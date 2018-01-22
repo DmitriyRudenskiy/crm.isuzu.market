@@ -47,6 +47,7 @@ class ParserSipuni extends Command
 
                     if (!empty($phone) && $service->isValid($phone) && !isset($data[$phone])) {
                         $date = \DateTime::createFromFormat('d.m.Y H:i:s', $value[2]);
+                        $date->modify('-7 hours');
                         $data[$phone] = $date;
                     }
                 }
