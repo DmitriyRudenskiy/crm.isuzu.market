@@ -32,6 +32,9 @@ class GetIncomingCalls extends Command
         ];
 
         foreach ($list as $key => $value) {
+
+            $this->info('Check for :' . $key);
+
             $query = new Query($value[0], $value[1]);
 
             $result = $loader->setUrl(ParserSipuni::URL)->get($query);
