@@ -44,9 +44,11 @@ class GetIncomingCalls extends Command
             }, explode("\n", $result));
 
             foreach ($csv as $value) {
-                if (!empty($value[4]) && $value[0] == "Входящий") {
-                    $phone = $service->parsing($value[4]);
+                $phone = $service->parsing($value[4]);
 
+                $this->info('Find phone number : +7' . $phone);
+
+                if (!empty($value[4]) && $value[0] == "Входящий") {
                     $date = null;
 
                     if ($value[1] != "Не отвечен") {
