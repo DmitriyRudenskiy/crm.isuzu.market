@@ -25,25 +25,33 @@ class GetIncomingCalls extends Command
      */
     public function handle(Loader $loader, PhonesRepository $repository, Phone $service)
     {
-        $query = new Query(env('SIPUNI_TRUCK_USER'), env('SIPUNI_TRUCK_KEY'));
+        $list = [
+            "fura" => [env('SIPUNI_FURA_USER'), env('SIPUNI_FURA_KEY')],
+            "truck" => [env('SIPUNI_TRUCK_USER'), env('SIPUNI_TRUCK_KEY')],
+            "atorgi" => [env('SIPUNI_ATORGI_USER'), env('SIPUNI_ATORGI_KEY')]
+        ];
 
-        $result = $loader->setUrl(ParserSipuni::URL)->get($query);
+        foreach ($list as $key => $value) {
+            $query = new Query($value[0], $value[1]);
 
-        $csv = array_map(function($string) {
-            return str_getcsv($string, ";");
-        }, explode("\n", $result));
+            $result = $loader->setUrl(ParserSipuni::URL)->get($query);
 
-        foreach ($csv as $value) {
-            if (!empty($value[4]) && $value[0] == "Входящий") {
-                $phone = $service->parsing($value[4]);
+            $csv = array_map(function($string) {
+                return str_getcsv($string, ";");
+            }, explode("\n", $result));
 
-                $date = null;
+            foreach ($csv as $value) {
+                if (!empty($value[4]) && $value[0] == "Входящий") {
+                    $phone = $service->parsing($value[4]);
 
-                if ($value[1] != "Не отвечен") {
-                    $date = \DateTime::createFromFormat('d.m.Y H:i:s', $value[2]);
+                    $date = null;
+
+                    if ($value[1] != "Не отвечен") {
+                        $date = \DateTime::createFromFormat('d.m.Y H:i:s', $value[2]);
+                    }
+
+                    $this->check($repository, $phone, $date);
                 }
-
-                $this->check($repository, $phone, $date);
             }
         }
     }

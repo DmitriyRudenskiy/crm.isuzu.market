@@ -28,7 +28,8 @@ class ParserSipuni extends Command
     {
         $list = [
             "fura" => [env('SIPUNI_FURA_USER'), env('SIPUNI_FURA_KEY')],
-            "truck" => [env('SIPUNI_TRUCK_USER'), env('SIPUNI_TRUCK_KEY')]
+            "truck" => [env('SIPUNI_TRUCK_USER'), env('SIPUNI_TRUCK_KEY')],
+            "atorgi" => [env('SIPUNI_ATORGI_USER'), env('SIPUNI_ATORGI_KEY')]
         ];
 
         foreach ($list as $key => $value) {
