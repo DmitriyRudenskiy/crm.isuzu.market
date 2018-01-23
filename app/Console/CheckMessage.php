@@ -78,13 +78,11 @@ class CheckMessage extends Command
                     $phone = $repository->get($find->number);
 
                     // нелефон не найден
-                    if ($phone === null) {
-                        (new Telegram())->send('Не известный телефон с номером: ' . $find->number);
+                    if ($phone !== null) {
+                        $phone->comment = trim($phone->comment . ' ' . $find->comment);
+                        $phone->call = $value["added_on"];
+                        $phone->save();
                     }
-
-                    $phone->comment = trim($phone->comment . ' ' . $find->comment);
-                    $phone->call = $value["added_on"];
-                    $phone->save();
                 }
             }
         }
