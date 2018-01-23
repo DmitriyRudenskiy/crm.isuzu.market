@@ -60,8 +60,6 @@ class GetIncomingCalls extends Command
 
                             $this->check($repository, $phone, $date);
                         }
-                    } else {
-                        var_dump($value);
                     }
                 }
             }
