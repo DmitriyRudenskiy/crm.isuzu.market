@@ -69,6 +69,7 @@ class GetIncomingCalls extends Command
     {
         if ($repository->get($phone) !== null) {
 
+            /*
             $data = [
                 'phone' => $phone,
             ];
@@ -81,6 +82,9 @@ class GetIncomingCalls extends Command
 
             $message = view("admin.telegram.repeat", $data)->render();
             return (new Telegram())->send($message);
+            */
+
+            return false;
         }
 
         $model = new Phones();
