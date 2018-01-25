@@ -74,7 +74,7 @@ class Query
         $this->user = $user;
         $this->secret = $secret;
 
-        $this->from = date('d.m.Y', strtotime("-1 day"));
+        $this->from = date('d.m.Y', strtotime("-7 day"));
         $this->to = date('d.m.Y');
         $this->type = '0';
         $this->state = '0';
