@@ -68,7 +68,8 @@ class GetIncomingCalls extends Command
     public function check(PhonesRepository $repository, $phone, $date, $type)
     {
         if ($repository->get($phone) !== null) {
-            return false;
+            $message = view("admin.telegram.repeat", ['phone' => $phone])->render();
+            return (new Telegram())->send($message);
         }
 
         $model = new Phones();
@@ -77,7 +78,7 @@ class GetIncomingCalls extends Command
         if ($type !== "atorgi") {
             $model->vendor = 'входящие Трак-Прайс';
         } else {
-            $model->vendor = 'входящие "Серая схема"';
+            $model->vendor = 'входящие "Серая схемаcd ../"';
         }
 
         $model->group_city = ' ';
