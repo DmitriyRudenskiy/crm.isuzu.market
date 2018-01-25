@@ -93,7 +93,7 @@ class GetIncomingCalls extends Command
         if ($type !== "atorgi") {
             $model->vendor = 'входящие Трак-Прайс';
         } else {
-            $model->vendor = 'входящие "Серая схема"';
+            $model->vendor = 'входящие Серая схема';
         }
 
         $model->group_city = ' ';
