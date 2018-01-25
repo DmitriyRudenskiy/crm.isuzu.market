@@ -26,7 +26,6 @@ class GetIncomingCalls extends Command
     public function handle(Loader $loader, PhonesRepository $repository, Phone $service)
     {
         $list = [
-            "fura" => [env('SIPUNI_FURA_USER'), env('SIPUNI_FURA_KEY')],
             "truck" => [env('SIPUNI_TRUCK_USER'), env('SIPUNI_TRUCK_KEY')],
             "atorgi" => [env('SIPUNI_ATORGI_USER'), env('SIPUNI_ATORGI_KEY')]
         ];
@@ -58,7 +57,7 @@ class GetIncomingCalls extends Command
                                 $date = \DateTime::createFromFormat('d.m.Y H:i:s', $value[2]);
                             }
 
-                            $this->check($repository, $phone, $date);
+                            $this->check($repository, $phone, $date, $key);
                         }
                     }
                 }
@@ -66,7 +65,7 @@ class GetIncomingCalls extends Command
         }
     }
 
-    public function check(PhonesRepository $repository, $phone, $date)
+    public function check(PhonesRepository $repository, $phone, $date, $type)
     {
         if ($repository->get($phone) !== null) {
             return false;
@@ -75,7 +74,12 @@ class GetIncomingCalls extends Command
         $model = new Phones();
         $model->number = $phone;
         $model->call = $date;
-        $model->vendor = 'входящие Трак-Прайс';
+        if ($type !== "atorgi") {
+            $model->vendor = 'входящие Трак-Прайс';
+        } else {
+            $model->vendor = 'входящие "Серая схема"';
+        }
+
         $model->group_city = ' ';
         $model->save();
 
