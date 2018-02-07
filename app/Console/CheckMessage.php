@@ -44,15 +44,11 @@ class CheckMessage extends Command
         $data = [];
 
         foreach ($json->result as $value) {
-            if (!empty($value->channel_post->chat->id)
-                &&$value->channel_post->chat->id == env('TELEGRAM_CHAT_ID')) {
+            if (!empty(empty($value->channel_post->text)) && !empty($value->channel_post->chat->id)
+                && $value->channel_post->chat->id == env('TELEGRAM_CHAT_ID')) {
 
                 $date = new \DateTime();
                 $date->setTimestamp($value->channel_post->date);
-
-                if (empty($value->channel_post->text)) {
-                    dd($value->channel_post);
-                }
 
                 $data[] = [
                     "message_id" => $value->channel_post->message_id,
