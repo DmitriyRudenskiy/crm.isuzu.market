@@ -50,6 +50,10 @@ class CheckMessage extends Command
                 $date = new \DateTime();
                 $date->setTimestamp($value->channel_post->date);
 
+                if (empty($value->channel_post->text)) {
+                    dd($value->channel_post);
+                }
+
                 $data[] = [
                     "message_id" => $value->channel_post->message_id,
                     "update_id" => $value->update_id,
