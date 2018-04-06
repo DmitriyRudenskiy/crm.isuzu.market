@@ -78,6 +78,8 @@ class PhonesController extends Controller
             return redirect()->route('admin_phones_view', ["id" => $entity->id, "error" => true]);
         }
 
+        $data["group_city"] = "-";
+
         $regionName = $regionService->get($phone);
 
         $region = $regionsRepository->get($regionName);
@@ -86,8 +88,11 @@ class PhonesController extends Controller
             $region = $regionsRepository->add($regionName);
         }
 
-        $data["group_city"] = "-";
-        $data["region_id"] = $region->id;
+        if (!empty($region->id)) {
+            $data["region_id"] = $region->id;
+        } else {
+            $data["region_id"] = null;
+        }
 
         $repository->add($data);
 

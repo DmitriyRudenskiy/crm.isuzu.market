@@ -23,7 +23,9 @@ class RegionsRepository extends BaseRepository
 
     public function add($name)
     {
-        return $this->create(["name" => $name]);
+        if (!empty($name)) {
+            return $this->create(["name" => $name]);
+        }
     }
 
     public function getCountPhones()
