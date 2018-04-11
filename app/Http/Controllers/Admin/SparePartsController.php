@@ -67,7 +67,7 @@ class SparePartsController extends Controller
         }
 
         $message = sprintf(
-            "Запчасти подготовлены для:fix\nДата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
+            "Запчасти подготовлены для:\nДата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
             $sparePart->start_work,
             $sparePart->company,
             $sparePart->vin,
