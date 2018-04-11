@@ -36,6 +36,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('remind:call')->hourly();
         $schedule->command('check:message')->everyFiveMinutes();
         $schedule->command('incoming:calls')->everyFiveMinutes();
+        $schedule->command('spare:parts:notification')->hourly();
     }
 
     /**
