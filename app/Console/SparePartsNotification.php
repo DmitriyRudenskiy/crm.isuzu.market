@@ -37,7 +37,7 @@ class SparePartsNotification extends Command
 
         $message = sprintf(
             "Проблема наличия запчастей не решена (Прошло %d минут).
-            Дата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
+            Дата заезда: %s\nКомпания: %s\nАвтомобиль: %s\nВид работ: %s\nПримечание: %s",
             $interval,
             $sparePart->start_work,
             $sparePart->company,

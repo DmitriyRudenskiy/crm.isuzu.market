@@ -44,7 +44,7 @@ class SparePartsController extends Controller
         $repository->forceCreate($data);
 
         $message = sprintf(
-            "Дата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
+            "Дата заезда: %s\nКомпания: %s\nАвтомобиль: %s\nВид работ: %s\nПримечание: %s",
             $data["start_work"],
             $data["company"],
             $data["vin"],
@@ -67,7 +67,7 @@ class SparePartsController extends Controller
         }
 
         $message = sprintf(
-            "Запчасти подготовлены:\nДата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
+            "Запчасти подготовлены:\nДата заезда: %s\nКомпания: %s\nАвтомобиль: %s\nВид работ: %s\nПримечание: %s",
             $sparePart->start_work,
             $sparePart->company,
             $sparePart->vin,
