@@ -43,9 +43,15 @@ class SparePartsController extends Controller
 
         $repository->forceCreate($data);
 
-        $message = "У нас есть запчасть на " . $data["vin"] . "?
-        Два часа назад был запланирован заезд в сервис.
-        Проблема наличия запчастей не решена.";
+        $message = sprintf(
+            "НОВАЯ заявка\nДата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\n%sПримечание: %s",
+            $data["start_work"],
+            $data["company"],
+            $data["vin"],
+            $data["type"],
+            $data["comment"]
+
+        );
 
         $client->send($message);
 
