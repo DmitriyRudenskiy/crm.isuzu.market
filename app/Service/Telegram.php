@@ -11,19 +11,24 @@ class Telegram
     /**
      * @var string
      */
-    private $bot;
+    protected $bot;
 
     /**
      * @var int
      */
-    private $chatId;
+    protected $chatId;
 
     /**
      * @var string
      */
-    private $text;
+    protected $text;
 
     public function __construct()
+    {
+        $this->init();
+    }
+
+    protected function init()
     {
         if (empty(env('TELEGRAM_BOT')) || empty(env('TELEGRAM_CHAT_ID'))) {
             throw new InvalidArgumentException();

@@ -1,0 +1,46 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Телефоны{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7 col-md-12">
+            <h1>Телефоны (Всего: {{ list.total }})</h1>
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <a href="{{ route('admin_spare_parts_add') }}" class="btn btn-success btn-block">Добавить</a>
+                </div>
+            </div>
+
+            {% if list.total > 0 %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Дата заезда</th>
+                    <th>Компания</th>
+                    <th>VIN</th>
+                    <th>Вид работ</th>
+                    <th>Примечание</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in list %}
+                    <tr>
+                        <td>{{ item.start_work | date ("d.m H:i") }}</td>
+                        <!--<td class="text-nowrap">{% if item.call is empty %}<span class="text-success">новый</span>{% else %}{{ item.call | date("d.m H:i") }}{% endif %}</td>-->
+                        <td>{{ item.company }}</td>
+                        <td>{{ item.vin }}</td>
+                        <td>{{ item.type }}</td>
+                        <td>{% if item.comment is not empty %}{{ item.comment }}{% else %}-{% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ list.render() | raw }}
+            {% else %}
+                <div class="alert alert-danger" role="alert">Нет не одного телефонного номера</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

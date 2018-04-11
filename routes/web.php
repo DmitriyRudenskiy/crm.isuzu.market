@@ -25,7 +25,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('/phones/days', 'InfoController@day')->name('phones_days');
     });
 
-
+    Route::group(['prefix' => 'parts', 'as' => 'spare_parts_'], function () {
+        Route::get('/', 'SparePartsController@index')->name('index');
+        Route::get('add', 'SparePartsController@add')->name('add');
+        Route::post('insert', 'SparePartsController@insert')->name('insert');
+        Route::get('view/{id}', 'SparePartsController@view')->name('view');
+    });
 
     /*
     Route::get('/info', 'DashboardController@info')->name('info');

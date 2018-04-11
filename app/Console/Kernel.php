@@ -20,7 +20,8 @@ class Kernel extends ConsoleKernel
         FillEmptyRegions::class,
         GetIncomingCalls::class,
         ParserSipuni::class,
-        RemindToCall::class
+        RemindToCall::class,
+        SparePartsNotification::class
     ];
 
     /**
