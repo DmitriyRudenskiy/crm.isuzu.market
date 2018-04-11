@@ -26,7 +26,7 @@ class SparePartsController extends Controller
         return view('admin.part.add');
     }
 
-    public function insert(Request $request, SpareParts $repository)
+    public function insert(Request $request, SpareParts $repository, Telegram\SparePartClient $client)
     {
         $data = array_map(
             'trim',
@@ -42,6 +42,12 @@ class SparePartsController extends Controller
         );
 
         $repository->forceCreate($data);
+
+        $message = "У нас есть запчасть на " . $data["vin"] . "?
+        Два часа назад был запланирован заезд в сервис.
+        Проблема наличия запчастей не решена.";
+
+        $client->send($message);
 
         return redirect()->route('admin_spare_parts_index', ["success" => true]);
     }
