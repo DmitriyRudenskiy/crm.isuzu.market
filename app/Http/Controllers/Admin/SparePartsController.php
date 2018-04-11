@@ -44,13 +44,12 @@ class SparePartsController extends Controller
         $repository->forceCreate($data);
 
         $message = sprintf(
-            "НОВАЯ заявка\nДата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\n%sПримечание: %s",
+            "НОВАЯ заявка\nДата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
             $data["start_work"],
             $data["company"],
             $data["vin"],
             $data["type"],
             $data["comment"]
-
         );
 
         $client->send($message);
