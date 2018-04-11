@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('add', 'SparePartsController@add')->name('add');
         Route::post('insert', 'SparePartsController@insert')->name('insert');
         Route::get('view/{id}', 'SparePartsController@view')->name('view');
+        Route::get('success/{id}', 'SparePartsController@success')->name('success');
     });
 
     /*

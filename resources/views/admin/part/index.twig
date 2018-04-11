@@ -21,6 +21,7 @@
                     <th>VIN</th>
                     <th>Вид работ</th>
                     <th>Примечание</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,13 @@
                         <td>{{ item.vin }}</td>
                         <td>{{ item.type }}</td>
                         <td>{% if item.comment is not empty %}{{ item.comment }}{% else %}-{% endif %}</td>
+                        <td>
+                            {% if item.is_ready %}
+                                уже ОК
+                                {% else %}
+                            <a href="{{ route('admin_spare_parts_success', {'id': item.id }) }}" class="btn btn-success">Всё ОК!</a>
+                                    {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

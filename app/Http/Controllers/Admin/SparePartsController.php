@@ -56,4 +56,27 @@ class SparePartsController extends Controller
 
         return redirect()->route('admin_spare_parts_index', ["success" => true]);
     }
+
+    public function success($sparePartId, SpareParts $repository, Telegram\SparePartClient $client)
+    {
+        $sparePart = $repository->where('id', $sparePartId)->first();
+
+        if ($sparePart !== null) {
+            $sparePart->is_ready = true;
+            $sparePart->save();
+        }
+
+        $message = sprintf(
+            "Тут всё хорошо!\nДата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
+            $sparePart->start_work,
+            $sparePart->company,
+            $sparePart->vin,
+            $sparePart->type,
+            $sparePart->comment
+        );
+
+        $client->send($message);
+
+        return redirect()->route('admin_spare_parts_index', ["success" => true]);
+    }
 }
