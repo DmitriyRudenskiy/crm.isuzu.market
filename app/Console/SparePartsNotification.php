@@ -33,13 +33,12 @@ class SparePartsNotification extends Command
 
     protected function send(SpareParts $sparePart)
     {
-         $client = new SparePartClient();
+        $interval = (int)round((time() - strtotime($sparePart->created_at)) / 60);
 
         $message = sprintf(
-            "У нас есть запчасть на машину?
-Два часа назад был запланирован заезд в сервис.
-Проблема наличия запчастей не решена.
-Запчасти подготовлены для:\nДата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
+            "Проблема наличия запчастей не решена (Прошло %d минут).
+            Дата заезда: %s\nКомпания: %s\nVIN: %s\nВид работ: %s\nПримечание: %s",
+            $interval,
             $sparePart->start_work,
             $sparePart->company,
             $sparePart->vin,
@@ -47,8 +46,7 @@ class SparePartsNotification extends Command
             $sparePart->comment
         );
 
-        $client->send($message);
-
+        $client = new SparePartClient();
         $client->send($message);
     }
 }
