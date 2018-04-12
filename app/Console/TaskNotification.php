@@ -27,11 +27,11 @@ class TaskNotification extends Command
             ->get();
 
 
-        $this->info("Is now:" . date("Y-m-d H:i:s"));
+        $this->info("Is now:" . date("Y-m-d H:i:s", strtotime("+7 hours")));
         $this->info("Find in work:" . $list->count());
 
         foreach ($list as $item) {
-            if ((time() - strtotime($item->period)) > 0) {
+            if ((time() - strtotime("+7 hours", strtotime($item->period))) < 0) {
                 $this->send($item);
             }
         }
@@ -41,7 +41,7 @@ class TaskNotification extends Command
 
     protected function send(Tasks $task)
     {
-        $interval = (int)round((time() - strtotime($task->period)) / 60);
+        $interval = (int)round((time() - strtotime("+7 hours", strtotime($task->period))) / 60);
 
         $message = sprintf(
             "Ответственный %s не выполнил задачу поставленую %d минут назад\n%s",
