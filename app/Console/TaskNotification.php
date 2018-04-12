@@ -26,11 +26,11 @@ class TaskNotification extends Command
         $list = $repository->where('is_ready', false)
             ->get();
 
-        $this->info("Is now:" . date("Y-m-d H:i:s", strtotime("+7 hours")));
-        $this->info("Find in work:" . $list->count());
+        $this->info("Is now: " . date("Y-m-d H:i:s", strtotime("+7 hours")));
+        $this->info("Find in work: " . $list->count());
 
         foreach ($list as $item) {
-            $this->info("Check is:" . date("Y-m-d H:i:s"));
+            $this->info("Check is: " . strtotime($item->period));
 
             if ((strtotime("+7 hours") - strtotime($item->period)) < 0) {
                 $this->send($item);
