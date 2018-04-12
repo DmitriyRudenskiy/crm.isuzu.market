@@ -33,6 +33,14 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('success/{id}', 'SparePartsController@success')->name('success');
     });
 
+    Route::group(['prefix' => 'task', 'as' => 'task_'], function () {
+        Route::get('/', 'TaskController@index')->name('index');
+        Route::get('add', 'TaskController@add')->name('add');
+        Route::post('insert', 'TaskController@insert')->name('insert');
+        Route::get('view/{id}', 'TaskController@view')->name('view');
+        Route::get('success/{id}', 'TaskController@success')->name('success');
+    });
+
     /*
     Route::get('/info', 'DashboardController@info')->name('info');
 

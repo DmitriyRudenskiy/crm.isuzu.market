@@ -2,19 +2,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entities\SpareParts;
+use App\Entities\Tasks;
 use App\Service\Telegram;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use DateTime;
+use App\Service\Telegram\TaskClient;
 
-class SparePartsController extends Controller
+class TaskController extends Controller
 {
 
-    public function index(SpareParts $repository)
+    public function index(Tasks $repository)
     {
-        $list = $repository->paginate();
+        $list = $repository->orderBy('id', 'desc')->paginate();
 
         return view(
-            'admin.part.index',
+            'admin.task.index',
             [
                 'list' => $list
             ]
@@ -23,42 +26,31 @@ class SparePartsController extends Controller
 
     public function add()
     {
-        return view('admin.part.add');
+        return view('admin.task.add');
     }
 
-    public function insert(Request $request, SpareParts $repository, Telegram\SparePartClient $client)
+    public function insert(Request $request, Tasks $repository, TaskClient $client)
     {
         $data = array_map(
             'trim',
             $request->only(
                 [
-                    "start_work",
-                    "company",
-                    "vin",
-                    "type",
-                    "comment"
+                    "worker",
+                    "comment",
+                    "period"
                 ]
             )
         );
 
-        if (empty($data["start_work"])) {
-            throw new \RuntimeException();
-        }
+        $data["period"] = DateTime::createFromFormat('j.m.Y H:i', $data["period"]);
 
         $repository->forceCreate($data);
 
-        $message = sprintf(
-            "Дата заезда: %s\nКомпания: %s\nАвтомобиль: %s\nВид работ: %s\nПримечание: %s",
-            $data["start_work"],
-            $data["company"],
-            $data["vin"],
-            $data["type"],
-            $data["comment"]
-        );
-
+        // отправляем новое сообщение
+        $message = sprintf("Это тест! Назначена новая задача для %s\nЗадача: %s", $data["worker"], $data["comment"]);
         $client->send($message);
 
-        return redirect()->route('admin_spare_parts_index', ["success" => true]);
+        return redirect()->route('admin_task_index', ["success" => true]);
     }
 
     public function success($sparePartId, SpareParts $repository, Telegram\SparePartClient $client)

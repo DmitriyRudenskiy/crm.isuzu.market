@@ -1,0 +1,51 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Поставленные задачи{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7 col-md-12">
+            <h1>Задачи (Всего: {{ list.total }})</h1>
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <a href="{{ route('admin_task_add') }}" class="btn btn-success btn-block">Создать новую задачу</a>
+                </div>
+            </div>
+
+            {% if list.total > 0 %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Создана</th>
+                    <th>Крайний срок исполнения</th>
+                    <th>Для (Ответственный)</th>
+                    <th>Задача</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in list %}
+                    <tr>
+                        <td class="text-nowrap">{{ item.start_work | date ("d.m H:i") }}</td>
+                        <td class="text-nowrap">{{ item.period | date ("d.m H:i") }}</td>
+                        <td class="text-nowrap">{{ item.worker }}</td>
+                        <td>{% if item.comment is not empty %}{{ item.comment }}{% else %}-{% endif %}</td>
+                        <td>
+                            {% if item.is_ready %}
+                                уже ОК
+                            {% else %}
+                                <a href="{{ route('admin_task_success', {'id': item.id }) }}" class="btn btn-success">Всё ОК!</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ list.render() | raw }}
+            {% else %}
+                <div class="alert alert-danger" role="alert">Нет не одного телефонного номера</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
