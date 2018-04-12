@@ -63,7 +63,9 @@ class TaskController extends Controller
         }
 
         $message = sprintf(
-            "Задача снята!"
+            "Ответственный %s задачу:\n%s",
+            $sparePart->worker,
+            $sparePart->comment
         );
 
         $client->send($message);
