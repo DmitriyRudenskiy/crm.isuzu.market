@@ -21,7 +21,8 @@ class Kernel extends ConsoleKernel
         GetIncomingCalls::class,
         ParserSipuni::class,
         RemindToCall::class,
-        SparePartsNotification::class
+        SparePartsNotification::class,
+        TaskNotification::class
     ];
 
     /**
@@ -37,6 +38,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('check:message')->everyFiveMinutes();
         $schedule->command('incoming:calls')->everyFiveMinutes();
         $schedule->command('spare:parts:notification')->hourly();
+        $schedule->command('task:notification')->cron('*/3 09-21 * * 1-5');
     }
 
     /**
