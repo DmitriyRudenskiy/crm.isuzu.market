@@ -47,7 +47,7 @@ class TaskController extends Controller
         $repository->forceCreate($data);
 
         // отправляем новое сообщение
-        $message = sprintf("Это тест! Назначена новая задача для %s\nЗадача: %s", $data["worker"], $data["comment"]);
+        $message = sprintf("Назначена новая задача для %s\nЗадача: %s", $data["worker"], $data["comment"]);
         $client->send($message);
 
         return redirect()->route('admin_task_index', ["success" => true]);
