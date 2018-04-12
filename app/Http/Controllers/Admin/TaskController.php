@@ -53,7 +53,7 @@ class TaskController extends Controller
         return redirect()->route('admin_task_index', ["success" => true]);
     }
 
-    public function success($sparePartId, SpareParts $repository, Telegram\SparePartClient $client)
+    public function success($sparePartId, Tasks $repository, TaskClient $client)
     {
         $sparePart = $repository->where('id', $sparePartId)->first();
 
@@ -63,16 +63,11 @@ class TaskController extends Controller
         }
 
         $message = sprintf(
-            "Запчасти подготовлены:\nДата заезда: %s\nКомпания: %s\nАвтомобиль: %s\nВид работ: %s\nПримечание: %s",
-            $sparePart->start_work,
-            $sparePart->company,
-            $sparePart->vin,
-            $sparePart->type,
-            $sparePart->comment
+            "Задача снята!"
         );
 
         $client->send($message);
 
-        return redirect()->route('admin_spare_parts_index', ["success" => true]);
+        return redirect()->route('admin_task_index', ["success" => true]);
     }
 }
