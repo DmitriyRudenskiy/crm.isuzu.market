@@ -30,7 +30,7 @@ class TaskNotification extends Command
         $this->info("Find in work:" . $list->count());
 
         foreach ($list as $item) {
-            if ((time() - strtotime($item->period)) < 0) {
+            if ((time() - strtotime($item->period)) > 0) {
                 $this->send($item);
             }
         }
