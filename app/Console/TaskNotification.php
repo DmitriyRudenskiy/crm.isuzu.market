@@ -27,6 +27,9 @@ class TaskNotification extends Command
             ->where("period", '<', new DateTime())
             ->get();
 
+
+        $this->info("Find in work:" . $list->count());
+
         foreach ($list as $item) {
             $this->send($item);
         }
