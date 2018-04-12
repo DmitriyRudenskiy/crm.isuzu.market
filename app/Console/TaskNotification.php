@@ -27,6 +27,7 @@ class TaskNotification extends Command
             ->get();
 
 
+        $this->info("Is now:" . date("Y-m-d H:i:s"));
         $this->info("Find in work:" . $list->count());
 
         foreach ($list as $item) {
