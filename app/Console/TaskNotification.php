@@ -24,14 +24,15 @@ class TaskNotification extends Command
     {
 
         $list = $repository->where('is_ready', false)
-            ->where("period", '<', new DateTime())
             ->get();
 
 
         $this->info("Find in work:" . $list->count());
 
         foreach ($list as $item) {
-            $this->send($item);
+            if ((time() - strtotime($item->period)) < 0) {
+                $this->send($item);
+            }
         }
 
         $this->info("Finish");
