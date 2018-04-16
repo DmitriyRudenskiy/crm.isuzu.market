@@ -9,7 +9,7 @@ php artisan create:user
 ## Work
 docker run --name php-crm.isuzu.market \
     --link  work-mysql:db \
-    -p 8087:8000  \
+    -p 9501:9501  \
     -v '/Users/user/PhpstormProjects/crm.isuzu.market:/app' \
     -w '/app' \
     --rm -i -t my/php sh

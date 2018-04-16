@@ -2,16 +2,6 @@ body,html{
     height: 100%;
   }
 
-  nav.sidebar, .main{
-    -webkit-transition: margin 200ms ease-out;
-      -moz-transition: margin 200ms ease-out;
-      -o-transition: margin 200ms ease-out;
-      transition: margin 200ms ease-out;
-  }
-
-  .main{
-    padding: 10px 10px 0 10px;
-  }
 
  @media (min-width: 765px) {
 
@@ -68,10 +58,7 @@ body,html{
     }
 
     nav.sidebar{
-      width: 200px;
-      height: 100%;
-      margin-left: -160px;
-      float: left;
+      width: 100%;
       margin-bottom: 0px;
     }
 
@@ -121,12 +108,6 @@ body,html{
     height: 100%;
   }
 
-  nav.sidebar, .main{
-    -webkit-transition: margin 200ms ease-out;
-      -moz-transition: margin 200ms ease-out;
-      -o-transition: margin 200ms ease-out;
-      transition: margin 200ms ease-out;
-  }
 
   .main{
     padding: 10px 10px 0 10px;
@@ -187,10 +168,7 @@ body,html{
     }
 
     nav.sidebar{
-      width: 200px;
-      height: 100%;
-      margin-left: -160px;
-      float: left;
+      width: 100%;
       margin-bottom: 0px;
     }
 
