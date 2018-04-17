@@ -44,10 +44,6 @@ class FillEmptyRegions extends Command
 
             $value->region_id = $region->id;
             $value->save();
-
-            sleep(10);
         }
-
-
     }
 }

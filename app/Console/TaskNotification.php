@@ -32,8 +32,6 @@ class TaskNotification extends Command
         foreach ($list as $item) {
             $this->info("Check is: " . date("Y-m-d H:i:s", strtotime($item->period)));
 
-            var_dump((strtotime("+7 hours") - strtotime($item->period)) > 0);
-
             if ((strtotime("+7 hours") - strtotime($item->period)) > 0) {
                 $this->send($item);
             }
