@@ -114,6 +114,7 @@ class TaskController extends Controller
         $task->period = DateTime::createFromFormat('j.m.Y H:i', $data["period"]);
         $task->worker = $data["worker"];
         $task->comment = $data["comment"];
+        $task->save();
 
         return redirect()->route('admin_task_index', ["success" => true]);
     }
