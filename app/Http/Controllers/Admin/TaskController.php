@@ -81,12 +81,41 @@ class TaskController extends Controller
 
     public function edit($taskId, Tasks $repository, TaskClient $client)
     {
-        dd($taskId);
+        $task = $repository->where('id', $taskId)->first();
+
+        if ($task === null) {
+            throw new \RuntimeException();
+        }
+
+        return view('admin.task.add', ['task' => $task]);
     }
 
-    public function update($taskId, Tasks $repository, TaskClient $client)
+    public function update(Request $request, Tasks $repository, TaskClient $client)
     {
-        dd($taskId);
+        $taskId = $request->get('id');
+
+        $task = $repository->where('id', $taskId)->first();
+
+        if ($task === null) {
+            throw new \RuntimeException();
+        }
+
+        $data = array_map(
+            'trim',
+            $request->only(
+                [
+                    "worker",
+                    "comment",
+                    "period"
+                ]
+            )
+        );
+
+        $task->period = DateTime::createFromFormat('j.m.Y H:i', $data["period"]);
+        $task->worker = $data["worker"];
+        $task->comment = $data["comment"];
+
+        return redirect()->route('admin_task_index', ["success" => true]);
     }
 
     public function request($taskId, Tasks $repository, TaskClient $client)
