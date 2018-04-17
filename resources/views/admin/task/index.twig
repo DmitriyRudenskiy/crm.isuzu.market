@@ -34,7 +34,9 @@
                             {% if item.is_ready %}
                                 уже ОК
                             {% else %}
-                                <a href="{{ route('admin_task_success', {'id': item.id }) }}" class="btn btn-success">Всё ОК!</a>
+                                <p><a href="{{ route('admin_task_success', {'id': item.id }) }}" class="btn btn-success">Всё ОК!</a></p>
+                                <p><a href="{{ route('admin_task_edit', {'id': item.id }) }}" class="btn btn-link">Редактировать</a></p>
+                                <p><a href="{{ route('admin_task_request', {'id': item.id }) }}" class="btn btn-link">Причина</a></p>
                             {% endif %}
                         </td>
                     </tr>

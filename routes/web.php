@@ -39,7 +39,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::post('insert', 'TaskController@insert')->name('insert');
         Route::get('view/{id}', 'TaskController@view')->name('view');
         Route::get('success/{id}', 'TaskController@success')->name('success');
+
+        Route::get('edit/{id}', 'TaskController@edit')->name('edit');
+        Route::post('edit', 'TaskController@update')->name('update');
+        Route::get('request/{id}', 'TaskController@request')->name('request');
     });
+
+
 
     /*
     Route::get('/info', 'DashboardController@info')->name('info');

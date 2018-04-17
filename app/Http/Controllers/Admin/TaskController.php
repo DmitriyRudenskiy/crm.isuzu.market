@@ -78,4 +78,31 @@ class TaskController extends Controller
 
         return redirect()->route('admin_task_index', ["success" => true]);
     }
+
+    public function edit($taskId, Tasks $repository, TaskClient $client)
+    {
+        dd($taskId);
+    }
+
+    public function update($taskId, Tasks $repository, TaskClient $client)
+    {
+        dd($taskId);
+    }
+
+    public function request($taskId, Tasks $repository, TaskClient $client)
+    {
+        $task = $repository->where('id', $taskId)->first();
+
+        if ($task !== null) {
+            $message = sprintf(
+                "%s поясните причину невыполнения задания %s",
+                $task->worker,
+                $task->comment
+            );
+
+            $client->send($message);
+        }
+
+        return redirect()->route('admin_task_index', ["success" => true]);
+    }
 }
