@@ -140,7 +140,7 @@ class TaskController extends Controller
 
         if ($task !== null) {
             $message = sprintf(
-                "%s поясните причину невыполнения задания %s",
+                "%s поясните причину невыполнения задания %s и напишите сколько времени вам потребуется для выполнения задачи",
                 $task->worker,
                 $task->comment
             );
