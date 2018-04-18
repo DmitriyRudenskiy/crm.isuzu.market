@@ -58,7 +58,7 @@
                     <tr>
                         <td class="text-nowrap">
                             {{ item.period | date ("d.m H:i") }}
-                            {% if date(item.period) < date() %}
+                            {% if date(item.period) < date("+7 hours") %}
                                 <div class="alert alert-danger" role="alert">Просрочен</div>
                             {% endif %}
                         </td>
