@@ -4,10 +4,41 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-7 col-md-12">
+
             <h1>Задачи (Всего: {{ list.total }})</h1>
 
             <div class="row">
-                <div class="col-md-12 text-right">
+                <div class="col-md-9 col-xs-12">
+                    <form class="well">
+                        <!--
+                        <div class="form-group">
+                            <label class="sr-only">Задача (или часть)</label>
+                            <input type="text" name="q" class="form-control" value="" placeholder="Название города">
+                        </div>
+                        -->
+
+                        <div class="form-group">
+                            <label>Ответственный</label>
+                            <select class="form-control" name="worker">
+                                <option value="">Все</option>
+                                <option value="Вячеслав" {% if worker == "Вячеслав" %}selected{% endif %}>Вячеслав</option>
+                                <option value="Сергей" {% if worker == "Сергей" %}selected{% endif %}>Сергей</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="is_ready" value="1" {% if is_ready %}checked{% endif %}> Выполненные
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Выбрать</button>
+                    </form>
+                </div>
+                <div class="col-md-3 col-xs-12">
                     <a href="{{ route('admin_task_add') }}" class="btn btn-success btn-block">Создать новую задачу</a>
                 </div>
             </div>
@@ -16,9 +47,8 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Создана</th>
-                    <th>Крайний срок исполнения</th>
-                    <th>Для (Ответственный)</th>
+                    <th>Исполнение</th>
+                    <th>Ответственный</th>
                     <th>Задача</th>
                     <th></th>
                 </tr>
@@ -26,8 +56,12 @@
                 <tbody>
                 {% for item in list %}
                     <tr>
-                        <td class="text-nowrap">{{ item.start_work | date ("d.m H:i") }}</td>
-                        <td class="text-nowrap">{{ item.period | date ("d.m H:i") }}</td>
+                        <td class="text-nowrap">
+                            {{ item.period | date ("d.m H:i") }}
+                            {% if date(item.period) < date() %}
+                                <div class="alert alert-danger" role="alert">Просрочен</div>
+                            {% endif %}
+                        </td>
                         <td class="text-nowrap">{{ item.worker }}</td>
                         <td>{% if item.comment is not empty %}{{ item.comment }}{% else %}-{% endif %}</td>
                         <td>

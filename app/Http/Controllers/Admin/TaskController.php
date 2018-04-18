@@ -12,14 +12,29 @@ use App\Service\Telegram\TaskClient;
 class TaskController extends Controller
 {
 
-    public function index(Tasks $repository)
+    public function index(Tasks $repository, Request $request)
     {
-        $list = $repository->orderBy('id', 'desc')->paginate();
+        $showIsReady = ($request->get('is_ready', 0) > 0);
+        $worker = $request->get('worker');
+
+        $query = $repository->orderBy('period', 'asc');
+
+        if (!$showIsReady) {
+            $query->where("is_ready", false);
+        }
+
+        if (!empty($worker)) {
+            $query->where("worker", $worker);
+        }
+
+        $list = $query->paginate();
 
         return view(
             'admin.task.index',
             [
-                'list' => $list
+                'list' => $list,
+                'is_ready' => $showIsReady,
+                'worker' => $worker
             ]
         );
     }
@@ -134,5 +149,12 @@ class TaskController extends Controller
         }
 
         return redirect()->route('admin_task_index', ["success" => true]);
+    }
+
+    protected function getWorkers()
+    {
+        return [
+
+        ];
     }
 }
