@@ -146,6 +146,14 @@ class TaskController extends Controller
             );
 
             $client->send($message);
+
+            if ($task->worker == "Вячеслав") {
+                $client->sendSvala($message);
+            }
+
+            if ($task->worker == "Сергей") {
+                // ...
+            }
         }
 
         return redirect()->route('admin_task_index', ["success" => true]);
