@@ -1,0 +1,41 @@
+{% extends "front.layouts.app" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h2>Процессы для {{ user.name }}</h2>
+        <h3>{{ process.name }}</h3>
+    </div>
+
+    <div class="row">
+        {% for item in process.tasks %}
+            <div class="col-lg-12" style="border-bottom: 1px solid #ccc; margin-bottom: 24px; padding-bottom: 24px">
+                <p>{{ item.title }}</p>
+                {% if item.is_ready is empty %}
+                <form method="post" action="{{ route('front_process_task') }}">
+                    <input type="hidden" name="id" value="{{ item.id }}">
+                    {{ csrf_field() }}
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <textarea class="form-control" rows="5" name="comment" required></textarea>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <button type="submit" class="btn btn-success btn-block">Выполнено</button>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p>{{ item.comment }}</p>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <p>Выполнено<br>{{ item.is_ready | date("d.m.Y H:m") }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

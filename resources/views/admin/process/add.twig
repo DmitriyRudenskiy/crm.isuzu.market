@@ -1,0 +1,42 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Телефоны{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-5 col-md-7">
+            <h1>Новый процесс</h1>
+
+            <form method="post" action="{{ route('admin_process_insert') }}">
+                {{ csrf_field() }}
+
+                <div class="form-group">
+                    <label>Название <span class="text-danger">*</span></label>
+                    <input type='text' class="form-control" name="name" value="" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Ответственный <span class="text-danger">*</span></label>
+                    <select class="form-control" name="worker_id" required>
+                        <option value="">--</option>
+                        {% for item in workers %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <label>Действие №1 *</label>
+                <div class="row form-group">
+                    <div class="col-md-9">
+                        <input type='text' class="form-control" name="task" value="" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-block">Добавить</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>Сохранить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

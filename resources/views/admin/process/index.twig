@@ -1,0 +1,46 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Поставленные задачи{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7 col-md-12">
+
+            <h1>Процессов (Всего: {{ list.total }})</h1>
+
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <a href="{{ route('admin_process_add') }}" class="btn btn-success btn-block">Создать новый процесс</a>
+                </div>
+            </div>
+
+            {% if list.total > 0 %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Ответственный</th>
+                    <th>Название</th>
+                    <th>Задачи</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in list %}
+                    <tr>
+                        <td class="text-nowrap">{{ item.worker }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.tasks.count() }}</td>
+                        <td>
+                            <a href="{{ route('admin_process_edit', {'id': item.id }) }}" class="btn btn-link">Редактировать</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ list.render() | raw }}
+            {% else %}
+                <div class="alert alert-danger" role="alert">Нет ни одной задачи</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

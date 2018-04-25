@@ -6,6 +6,10 @@ Route::get('/tJEqL3LABZwq', 'IndexController@index');
 
 Route::get('/task/show/{id}', 'IndexController@show')->name('show_task');
 
+Route::get('/process/{id}', 'Front\ProcessController@index');
+Route::get('/process/view/{id}', 'Front\ProcessController@view')->name('front_process_view');
+Route::post('/process/view/task', 'Front\ProcessController@task')->name('front_process_task');
+
 Route::group(['middleware' => 'web', 'namespace' => 'Admin'], function () {
     Route::post('login', 'LoginController@login')->name('login_check');
     Route::get('/', 'LoginController@showLoginForm')->name('login');
@@ -45,6 +49,18 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('edit/{id}', 'TaskController@edit')->name('edit');
         Route::post('edit', 'TaskController@update')->name('update');
         Route::get('request/{id}', 'TaskController@request')->name('request');
+    });
+
+
+    Route::group(['prefix' => 'process', 'as' => 'process_'], function () {
+        Route::get('/', 'ProcessController@index')->name('index');
+        Route::get('add', 'ProcessController@add')->name('add');
+        Route::post('insert', 'ProcessController@insert')->name('insert');
+        Route::get('edit/{id}', 'ProcessController@edit')->name('edit');
+        Route::post('update', 'ProcessController@update')->name('update');
+        Route::get('task/delete/{id}', 'ProcessController@delete')->name('task_delete');
+        Route::get('view/{id}', 'ProcessController@view')->name('view');
+        Route::get('success/{id}', 'ProcessController@success')->name('success');
     });
 });
 

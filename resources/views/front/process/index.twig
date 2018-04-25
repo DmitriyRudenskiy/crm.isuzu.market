@@ -1,0 +1,17 @@
+{% extends "front.layouts.app" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h2>Процессы для {{ user.name }}</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="list-group">
+                {% for item in list %}
+                    <a href="{{ route('front_process_view', {'id': item.id}) }}" class="list-group-item"><span class="badge">{{ item.tasks.count() }}</span>{{ item.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
