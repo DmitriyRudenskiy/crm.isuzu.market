@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Mail;
 use InvalidArgumentException;
 
 class Telegram
@@ -51,6 +53,8 @@ class Telegram
 
         $response = @file_get_contents($url);
 
+        $this->sendMail($text);
+
         return !empty($response);
     }
 
@@ -62,5 +66,13 @@ class Telegram
         ];
 
         return sprintf(self::URL, $this->bot) . http_build_query($data);
+    }
+
+    protected function sendMail($text)
+    {
+        Mail::raw($text, function (Message $message) {
+            $message->to(env('MAIL_TO'));
+            $message->subject('Нужен заголовок');
+        });
     }
 }
