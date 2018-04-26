@@ -28,3 +28,5 @@ CREATE DATABASE IF NOT EXISTS crm_isuzu_market;
 
 // api для определения номера телефона
 tests/Unit/GetRegionApiTest.php
+
+tests/Unit/MailTest.php
