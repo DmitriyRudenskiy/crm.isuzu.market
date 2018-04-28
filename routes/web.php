@@ -6,9 +6,10 @@ Route::get('/tJEqL3LABZwq', 'IndexController@index');
 
 Route::get('/task/show/{id}', 'IndexController@show')->name('show_task');
 
-Route::get('/process/{id}', 'Front\ProcessController@index');
+Route::get('/process/{id}', 'Front\ProcessController@index')->name('front_process');
 Route::get('/process/view/{id}', 'Front\ProcessController@view')->name('front_process_view');
 Route::post('/process/view/task', 'Front\ProcessController@task')->name('front_process_task');
+Route::post('/process/copy', 'Front\ProcessController@copy')->name('front_process_copy');
 
 Route::group(['middleware' => 'web', 'namespace' => 'Admin'], function () {
     Route::post('login', 'LoginController@login')->name('login_check');

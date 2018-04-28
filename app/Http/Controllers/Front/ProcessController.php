@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Front;
 
+use App\Entities\Process\Copy;
 use App\Entities\Process\Process;
 use App\Entities\Process\Workers;
 use App\Entities\Process\Tasks;
@@ -23,16 +24,18 @@ class ProcessController extends Controller
         );
     }
 
-    public function view($processId, Process $processRepository, Workers $workersRepository)
+    public function view($processId, Process $processRepository, Workers $workersRepository, Copy $copyRepository)
     {
-        $process = $processRepository->findOrFail($processId);
+        $copy = $copyRepository->findOrFail($processId);
+        $process = $copy->process()->first();
         $user = $workersRepository->findOrFail($process->worker_id);
 
         return view(
             'front.process.view',
             [
                 "user" => $user,
-                'process' => $process
+                'process' => $process,
+                "copy" => $copy
             ]
         );
     }
@@ -50,5 +53,17 @@ class ProcessController extends Controller
         ]);
 
         return redirect()->route('front_process_view', ["id" => $task->process_id]);
+    }
+
+    public function copy(Request $request, Copy $copyRepository, Process $processRepository)
+    {
+        $copy = $copyRepository->create($request->only(["process_id", "name"]));
+
+        return redirect()->route(
+            'front_process',
+            [
+                "id" => $copy->process()->first()->worker_id
+            ]
+        );
     }
 }

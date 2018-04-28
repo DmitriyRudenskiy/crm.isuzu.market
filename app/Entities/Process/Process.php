@@ -22,4 +22,9 @@ class Process extends Model
     {
         return $this->hasMany(Tasks::class);
     }
+
+    public function copies()
+    {
+        return $this->hasMany(Copy::class);
+    }
 }
