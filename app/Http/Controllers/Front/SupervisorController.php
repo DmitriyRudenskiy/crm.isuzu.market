@@ -10,11 +10,20 @@ class SupervisorController extends Controller
     public function index(Process $processRepository, Copy $copyRepository)
     {
         $list = $copyRepository->all();
+        $calendar = [];
+
+        foreach ($list as $copy) {
+            $calendar[] = [
+                "title" => $copy->name,
+                "start" => $copy->created_at->format('Y-m-d H:i:s')
+            ];
+        }
 
         return view(
-            'front.supervisor.index',
+            "front.supervisor.index",
             [
-                'list' => $list
+                "list" => $list,
+                "calendar" => $calendar
             ]
         );
     }
