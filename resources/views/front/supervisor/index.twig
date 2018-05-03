@@ -77,10 +77,10 @@
                 </tbody>
                 <tbody>
                 {% for task in item.process.tasks %}
-                {% set status = item.getStatus(item.id) %}
+                {% set status = task.getStatus(item.id) %}
 
                 <tr>
-                    {% if status is empty %}
+                    {% if status is not empty %}
                         <td class="text-center"></td>
                         <td class="text-success">{{ task.title }}<br>{{ status.comment }}</td>
                         <td> {{ status.is_ready | date("d.m.y") }}</td>
