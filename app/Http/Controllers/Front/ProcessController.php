@@ -43,11 +43,13 @@ class ProcessController extends Controller
 
     public function task(Request $request, Status $statusRepository)
     {
+        $now =  new \DateTime();
+        $now->modify('+7 hours');
 
         $data = [
             "copy_id" => (int)$request->get("copy_id"),
             "task_id" => (int)$request->get("task_id"),
-            "is_ready" => new \DateTime(),
+            "is_ready" => $now,
             "comment" => trim($request->get('comment')),
         ];
 
