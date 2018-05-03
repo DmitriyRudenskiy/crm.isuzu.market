@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Entities\Process\Copy;
 use App\Entities\Process\Process;
+use App\Entities\Process\Status;
 use App\Entities\Process\Workers;
 use App\Entities\Process\Tasks;
 use Illuminate\Routing\Controller;
@@ -40,19 +41,19 @@ class ProcessController extends Controller
         );
     }
 
-    public function task(Request $request, Tasks $taskRepository)
+    public function task(Request $request, Status $statusRepository)
     {
-        $id = $request->get('id');
-        $comment = trim($request->get('comment'));
 
-        $task = $taskRepository->findOrFail($id);
+        $data = [
+            "copy_id" => (int)$request->get("copy_id"),
+            "task_id" => (int)$request->get("task_id"),
+            "is_ready" => new \DateTime(),
+            "comment" => trim($request->get('comment')),
+        ];
 
-        $task->update([
-            'is_ready' => new \DateTime(),
-            "comment" => $comment
-        ]);
+        $statusRepository->create($data);
 
-        return redirect()->route('front_process_view', ["id" => $task->process_id]);
+        return redirect()->route('front_process_view', ["id" => $data["copy_id"]]);
     }
 
     public function copy(Request $request, Copy $copyRepository, Process $processRepository)
