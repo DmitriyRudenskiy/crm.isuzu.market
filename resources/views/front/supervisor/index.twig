@@ -87,7 +87,7 @@
                 <tr>
                     {% if status is not empty %}
                         <td class="text-center"></td>
-                        <td class="text-success">{{ task.title }}<br>{{ status.comment }}</td>
+                        <td class="text-success"><h5>{{ task.title }}</h5>{{ status.comment }}</td>
                         <td> {{ status.is_ready | date("d.m.y H:i") }}</td>
                     {% else %}
                         <td class="text-center"></td>
