@@ -11,6 +11,8 @@ Route::get('/process/view/{id}', 'Front\ProcessController@view')->name('front_pr
 Route::post('/process/view/task', 'Front\ProcessController@task')->name('front_process_task');
 Route::post('/process/copy', 'Front\ProcessController@copy')->name('front_process_copy');
 
+Route::get('/supervisor', 'Front\SupervisorController@index')->name('front_supervisor');
+
 Route::group(['middleware' => 'web', 'namespace' => 'Admin'], function () {
     Route::post('login', 'LoginController@login')->name('login_check');
     Route::get('/', 'LoginController@showLoginForm')->name('login');

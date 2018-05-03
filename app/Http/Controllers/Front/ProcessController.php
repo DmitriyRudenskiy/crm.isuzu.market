@@ -25,7 +25,7 @@ class ProcessController extends Controller
         );
     }
 
-    public function view($processId, Process $processRepository, Workers $workersRepository, Copy $copyRepository)
+    public function view($processId, Workers $workersRepository, Copy $copyRepository)
     {
         $copy = $copyRepository->findOrFail($processId);
         $process = $copy->process()->first();

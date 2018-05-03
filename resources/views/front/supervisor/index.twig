@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="/css/jquery.dataTables.min.css" rel="stylesheet">
+    <style>
+        .js-table-checkable tbody tr, .js-table-sections-header > tr {
+            cursor: pointer
+        }
+
+        .js-table-sections-header > tr > td:first-child > i {
+            -webkit-transition: -webkit-transform .15s ease-out;
+            transition: transform .15s ease-out
+        }
+
+        .js-table-sections-header + tbody {
+            display: none
+        }
+
+        .js-table-sections-header.open > tr {
+            background-color: #f9f9f9
+        }
+
+        .js-table-sections-header.open > tr > td:first-child > i {
+            -webkit-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg)
+        }
+
+        .js-table-sections-header.open + tbody {
+            display: table-row-group
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header clearfix">
+        <!--
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation"><a href="#">About</a></li>
+                <li role="presentation"><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        -->
+        <h3 class="text-muted">Project name</h3>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-md-12">
+            <table class="js-table-sections table table-hover">
+                <thead>
+                <tr>
+                    <th style="width: 30px;"></th>
+                    <th>Name</th>
+                    <th class="hidden-xs" style="width: 15%;">Date</th>
+                </tr>
+                </thead>
+                {% for item in list %}
+                <tbody class="js-table-sections-header">
+                <tr>
+                    <td class="text-center">
+                        <i class="fa fa-angle-right"></i>
+                    </td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.created_at | date ("d.m.y") }}</td>
+                </tr>
+                </tbody>
+                <tbody>
+                {% for task in item.process.tasks %}
+                {% set status = item.getStatus(copy.id) %}
+
+                <tr>
+                    {% if status is empty %}
+                        <td class="text-center"></td>
+                        <td class="text-success">{{ task.title }}<br>{{ status.comment }}</td>
+                        <td> {{ status.is_ready | date("d.m.y") }}</td>
+                    {% else %}
+                        <td class="text-center"></td>
+                        <td>{{ task.title }}</td>
+                        <td>-</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+                {% endfor %}
+            </table>
+            </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2016 Company, Inc.</p>
+    </footer>
+
+</div> <!-- /container -->
+
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        jQuery(".js-table-sections").each(function () {
+            var e = jQuery(this);
+            $(".js-table-sections-header > tr", e).on("click", function (t) {
+                var n = $(this).parent("tbody");
+                n.hasClass("open") || jQuery("tbody", e).removeClass("open"), n.toggleClass("open")
+            })
+        });
+    });
+</script>
+</body>
+</html>
