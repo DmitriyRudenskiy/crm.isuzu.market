@@ -22,7 +22,7 @@ class CreateProcessTasksStatusTable extends Migration
 
             $table->foreign('copy_id')->references('id')->on('process_copy');
             $table->foreign('task_id')->references('id')->on('process_tasks');
-            $table->unique('copy_id', 'task_id');
+            $table->unique(['copy_id', 'task_id']);
         });
     }
 
