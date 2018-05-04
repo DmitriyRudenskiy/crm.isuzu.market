@@ -2,40 +2,29 @@
 
 {% block content %}
     <div class="jumbotron">
-        <h2>Задачи ожидающие исполнения</h2>
+        <h2>РЕГЛАМЕНТЫ</h2>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            {% if list.total > 0 %}
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Исполнение</th>
                         <th>Ответственный</th>
-                        <th>Задача</th>
+                        <th>Регламент</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for item in list %}
                         <tr>
-                            <td class="text-nowrap">
-                                {{ item.period | date ("d.m H:i") }}
-                                {% if date(item.period) < date("+7 hours") %}
-                                    <div class="alert alert-danger" role="alert">Просрочен</div>
-                                {% endif %}
-                            </td>
-                            <td class="text-nowrap">{{ item.worker }}</td>
-                            <td>{% if item.comment is not empty %}{{ item.comment }}{% else %}-{% endif %}</td>
+                            <td class="text-nowrap">Вячелав</td>
+                            <td>{{ item.worker }}</td>
                         </tr>
-                    {% endfor %}
+                        <tr>
+                            <td class="text-nowrap">Сергей</td>
+                            <td>{{ item.worker }}</td>
+                        </tr>
                     </tbody>
                 </table>
-
-                {{ list.render() | raw }}
-            {% else %}
-                <div class="alert alert-danger" role="alert">Нет ни одной задачи</div>
-            {% endif %}
         </div>
     </div>
 {% endblock %}
