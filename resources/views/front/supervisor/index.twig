@@ -123,8 +123,7 @@
         $('#calendar').fullCalendar({
             header: {
                 left: null,
-                center: 'title',
-                right: null
+                center: 'title'
             },
             defaultView: 'month',
             events: {{ calendar | json_encode | raw }}
