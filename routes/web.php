@@ -11,6 +11,7 @@ Route::get('/process/view/{id}', 'Front\ProcessController@view')->name('front_pr
 Route::post('/process/view/task', 'Front\ProcessController@task')->name('front_process_task');
 Route::post('/process/copy', 'Front\ProcessController@copy')->name('front_process_copy');
 Route::get('/regulations', 'Front\RegulationsController@index')->name('front_regulations');
+Route::get('/sale', 'Front\RegulationsController@sale')->name('front_sale');
 
 
 Route::get('/supervisor', 'Front\SupervisorController@index')->name('front_supervisor');
