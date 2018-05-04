@@ -9,7 +9,7 @@ class SupervisorController extends Controller
 {
     public function index(Process $processRepository, Copy $copyRepository)
     {
-        $list = $copyRepository->all();
+        $list = $copyRepository->orderBy('id', 'desc')->get();
         $calendar = [];
 
         foreach ($list as $copy) {
