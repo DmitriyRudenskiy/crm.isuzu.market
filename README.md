@@ -15,7 +15,7 @@ docker run --name php-crm.isuzu.market \
     --rm -i -t my/php sh
 
 ## Run server
-php -S 0.0.0.0:8000 -t public/
+php -S 0.0.0.0:9501 -t public/
 
 ## Create database
 CREATE DATABASE IF NOT EXISTS crm_isuzu_market;
