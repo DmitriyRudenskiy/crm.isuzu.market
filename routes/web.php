@@ -56,7 +56,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('request/{id}', 'TaskController@request')->name('request');
     });
 
-
     Route::group(['prefix' => 'process', 'as' => 'process_'], function () {
         Route::get('/', 'ProcessController@index')->name('index');
         Route::get('add', 'ProcessController@add')->name('add');
@@ -66,6 +65,14 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('task/delete/{id}', 'ProcessController@delete')->name('task_delete');
         Route::get('view/{id}', 'ProcessController@view')->name('view');
         Route::get('success/{id}', 'ProcessController@success')->name('success');
+    });
+
+    Route::group(['prefix' => 'regulations', 'as' => 'regulations_'], function () {
+        Route::get('/', 'RegulationsController@index')->name('index');
+        Route::get('add', 'RegulationsController@add')->name('add');
+        Route::post('insert', 'RegulationsController@insert')->name('insert');
+        Route::get('view/{id}', 'RegulationsController@view')->name('view');
+        Route::get('success/{id}', 'RegulationsController@success')->name('success');
     });
 });
 

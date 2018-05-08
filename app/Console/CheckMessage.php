@@ -115,3 +115,4 @@ class CheckMessage extends Command
         ];
     }
 }
+

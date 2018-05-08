@@ -1,0 +1,32 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Телефоны{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-5 col-md-7">
+            <h1>Добавить новый регламент</h1>
+
+            <form method="post" action="{{ route('admin_regulations_insert') }}">
+                {{ csrf_field() }}
+
+                <div class="form-group">
+                    <label>Ответственный <span class="text-danger">*</span></label>
+                    <select class="form-control" name="worker_id" required>
+                        <option value="">--</option>
+                        {% for item in workers %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Задача</label>
+                    <textarea class="form-control" rows="15" name="content" required>{{ task.comment }}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Сохранить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

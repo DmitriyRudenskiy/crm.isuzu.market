@@ -6,6 +6,7 @@ use App\Entities\Process\Process;
 use App\Entities\Process\Status;
 use App\Entities\Process\Workers;
 use App\Entities\Process\Tasks;
+use App\Service\Telegram;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
@@ -58,9 +59,22 @@ class ProcessController extends Controller
         return redirect()->route('front_process_view', ["id" => $data["copy_id"]]);
     }
 
-    public function copy(Request $request, Copy $copyRepository, Process $processRepository)
+    public function copy(Request $request)
     {
-        $copy = $copyRepository->create($request->only(["process_id", "name"]));
+        //
+        $processId = (int)$request->get("process_id");
+        $name = trim($request->get("name"));
+
+        //
+        $copy = new Copy();
+        $copy->process_id = $processId;
+        $copy->name = $name;
+        $copy->save();
+
+        //
+        $message = sprintf("В автосервис  заехал автомобиль '%s' http://crm.isuzu.market/supervisor", $name);
+        $telegram = new Telegram();
+        $telegram->send($message);
 
         return redirect()->route(
             'front_process',
