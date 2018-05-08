@@ -72,9 +72,11 @@ class ProcessController extends Controller
         $copy->save();
 
         //
-        $message = sprintf("В автосервис  заехал автомобиль '%s' http://crm.isuzu.market/supervisor", $name);
-        $telegram = new Telegram();
-        $telegram->send($message);
+        if ($processId == 2) {
+            $message = sprintf("В автосервис  заехал автомобиль '%s' http://crm.isuzu.market/supervisor", $name);
+            $telegram = new Telegram();
+            $telegram->send($message);
+        }
 
         return redirect()->route(
             'front_process',
