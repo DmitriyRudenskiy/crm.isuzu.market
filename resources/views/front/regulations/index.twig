@@ -15,21 +15,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-nowrap">Владимир</td>
-                            <td>В автосервисе должна проводиться ежедневная уборка</td>
-                        </tr>
-                        <tr>
-                            <td class="text-nowrap">Владимир</td>
-                            <td>Запрещено курение в помещении дилерского автосервиса Трак-прайс. Штраф 1000 рублей</td>
-                        </tr>
-                        <tr>
-                            <td class="text-nowrap">Михаил Соловьев</td>
-                            <td>Запрещена приемка автомобилей в автосервис без предварительной мойки. Штраф 1000 рублей</td>
-                        </tr>
+                        {% for item in list %}
+                            <tr>
+                                <td class="text-nowrap">{{ item.worker }}</td>
+                                <td>{{ item.content }}</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
         </div>
     </div>
 {% endblock %}
-

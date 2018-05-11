@@ -20,9 +20,9 @@ class RegulationsController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Regulations $regulationsRepository)
     {
-        $list = [];
+        $list = $regulationsRepository->paginate();
 
         return view('admin.regulations.index', ['list' => $list]);
     }

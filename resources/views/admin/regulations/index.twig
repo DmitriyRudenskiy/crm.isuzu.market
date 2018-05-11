@@ -22,32 +22,15 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Исполнение</th>
                         <th>Ответственный</th>
-                        <th>Задача</th>
-                        <th></th>
+                        <th>Регламент</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for item in list %}
                         <tr>
-                            <td class="text-nowrap">
-                                {{ item.period | date ("d.m H:i") }}
-                                {% if date(item.period) < date("+7 hours") %}
-                                    <div class="alert alert-danger" role="alert">Просрочен</div>
-                                {% endif %}
-                            </td>
                             <td class="text-nowrap">{{ item.worker }}</td>
-                            <td>{% if item.comment is not empty %}{{ item.comment }}{% else %}-{% endif %}</td>
-                            <td>
-                                {% if item.is_ready %}
-                                    уже ОК
-                                {% else %}
-                                    <p><a href="{{ route('admin_task_success', {'id': item.id }) }}" class="btn btn-success">Всё ОК!</a></p>
-                                    <p><a href="{{ route('admin_task_edit', {'id': item.id }) }}" class="btn btn-link">Редактировать</a></p>
-                                    <p><a href="{{ route('admin_task_request', {'id': item.id }) }}" class="btn btn-link">Причина</a></p>
-                                {% endif %}
-                            </td>
+                            <td>{{ item.content }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
