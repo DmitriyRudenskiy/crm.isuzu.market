@@ -74,5 +74,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
         Route::get('view/{id}', 'RegulationsController@view')->name('view');
         Route::get('success/{id}', 'RegulationsController@success')->name('success');
     });
+
+    Route::group(['prefix' => 'users', 'as' => 'users_'], function () {
+        Route::get('/', 'UsersController@index')->name('index');
+    });
 });
 
