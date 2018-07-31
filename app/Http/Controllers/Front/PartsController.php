@@ -10,14 +10,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PartsController extends Controller
 {
-    public function index($tokenId, Phones $repository, Request $request)
+    public function index($token, Phones $repository, Request $request)
     {
-        if ($tokenId !== env('API_TOKEN')) {
+        if ($token !== env('API_TOKEN')) {
             throw new NotFoundHttpException();
         }
 
         try {
-            $entity = $repository->create($request->all());
+            $entity = $repository->create($request->only(["number", "source", "comment"]));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
