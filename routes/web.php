@@ -21,6 +21,9 @@ Route::group(['middleware' => 'web', 'namespace' => 'Admin'], function () {
     Route::get('logout', 'LoginController@logout')->name('logout');
 });
 
+Route::post('/api/v3/{token}/parts/phone', 'Front\PartsController@index');
+Route::get('/api/v3/{token}/parts/phone', 'Front\PartsController@test');
+
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin_'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 

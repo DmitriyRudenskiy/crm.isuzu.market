@@ -1,0 +1,9 @@
+<split-panel class=" verticalFlexContainer" direction="vertical" (dragEnd)="handleSplitterDragEnd($event)"
+             (dragProgress)="handleSplitterDragProgress($event)" [forceStop]="forceDragStop">
+    <split-area [size]="epcSplitterConfig?.panels[contentPanel].size" id="epcContent" class="flexFill epcContent">
+        <router-outlet></router-outlet>
+    </split-area>
+    <split-area [size]="epcSplitterConfig?.panels[pickListPanel].size" id="epcPicklist" class="flexFill epcFooter">
+        <epc-picklist></epc-picklist>
+    </split-area>
+</split-panel>
