@@ -27,6 +27,13 @@ Route::get('/api/v3/{token}/parts/phone', 'Front\PartsController@test');
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin_'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
+    Route::group(['prefix' => 'isuzu', 'as' => 'isuzu_'], function () {
+        Route::get('/', 'IsuzuController@index')->name('index');
+        Route::get('add', 'IsuzuController@add')->name('add');
+        Route::post('insert', 'IsuzuController@insert')->name('insert');
+        Route::get('view/{id}', 'IsuzuController@view')->name('view');
+    });
+
     Route::group(['prefix' => 'phones', 'as' => 'phones_'], function () {
         Route::get('/', 'PhonesController@index')->name('index');
         Route::get('add', 'PhonesController@add')->name('add');

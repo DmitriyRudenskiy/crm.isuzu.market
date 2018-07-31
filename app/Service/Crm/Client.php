@@ -24,9 +24,6 @@ class Client
      */
     public function getRequest($data)
     {
-        return "best";
-
-
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_URL, $this->url);

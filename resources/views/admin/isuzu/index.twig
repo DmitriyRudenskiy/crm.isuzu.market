@@ -1,0 +1,38 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Телефоны{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7 col-md-12">
+            <h1>Телефоны (Всего: {{ list.total }})</h1>
+
+
+            {% if list.total > 0 %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Добавлен</th>
+                    <th>Номер</th>
+                    <th>Источник</th>
+                    <th>Примечание</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in list %}
+                    <tr>
+                        <td>{{ item.created_at | date ("d.m H:i") }}</td>
+                        <td>{{ item.number }}</td>
+                        <td>{{ item.source }}</td>
+                        <td>{{ item.comment }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ list.render() | raw }}
+            {% else %}
+                <div class="alert alert-danger" role="alert">Нет не одного телефонного номера</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
