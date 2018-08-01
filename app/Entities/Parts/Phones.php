@@ -2,6 +2,7 @@
 
 namespace App\Entities\Parts;
 
+use App\Entities\Process\Workers;
 use Illuminate\Database\Eloquent\Model;
 
 class Phones extends Model
@@ -19,4 +20,9 @@ class Phones extends Model
         "source",
         "comment"
     ];
+
+    public function worker()
+    {
+        return $this->hasOne(Workers::class, 'id', 'worker_id');
+    }
 }

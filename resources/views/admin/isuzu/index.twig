@@ -15,6 +15,7 @@
                     <th>Номер</th>
                     <th>Источник</th>
                     <th>Примечание</th>
+                    <th>Исполнитель</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -24,6 +25,24 @@
                         <td>{{ item.number }}</td>
                         <td>{{ item.source }}</td>
                         <td>{{ item.comment }}</td>
+                        <td>
+                            {% if item.worker_id is null %}
+                            <form method="post" action="{{ route('admin_isuzu_set') }}">
+                                <input type="hidden" name="id" value="{{ item.id }}">
+                                <div class="form-group">
+                                    <select class="form-control" name="worker_id" required>
+                                        <option value="">--</option>
+                                        {% for value in workers %}
+                                            <option value="{{ value.id }}">{{ value.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default btn-block">Назначить</button>
+                            </form>
+                            {% else %}
+                                {{ item.worker }}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
