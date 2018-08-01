@@ -11,7 +11,7 @@ class IsuzuController extends Controller
 
     public function index(Phones $repository)
     {
-        $list = $repository->paginate(10);
+        $list = $repository->orderBy('id', 'desc')->paginate(15);
 
         return view(
             'admin.isuzu.index',
