@@ -22,7 +22,13 @@
                 {% for item in list %}
                     <tr>
                         <td>{{ item.created_at | date ("d.m H:i") }}</td>
-                        <td>{{ item.number }}</td>
+                        <td>
+                            {% if item.copy_id > 0 %}
+                            <a href="{{ route('front_process_view', {id: item.copy_id}) }}" target="_blank"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {{ item.number }}</a>
+                            {% else %}
+                                {{ item.number }}
+                            {% endif %}
+                        </td>
                         <td>{{ item.source }}</td>
                         <td>{{ item.comment }}</td>
                         <td>
@@ -40,7 +46,7 @@
                                 <button type="submit" class="btn btn-default btn-block">Назначить</button>
                             </form>
                             {% else %}
-                                {{ item.worker }}
+                                <a href="" target="_blank"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {{ item.worker }}</a>
                             {% endif %}
                         </td>
                     </tr>

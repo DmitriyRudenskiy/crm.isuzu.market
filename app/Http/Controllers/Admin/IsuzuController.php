@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entities\Parts\Phones;
+use App\Entities\Process\Copy;
 use App\Entities\Process\Workers;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
@@ -28,6 +29,13 @@ class IsuzuController extends Controller
         $id = (int)$request->get('id');
         $phone = $repository->findOrFail($id);
 
+        //Создаём процесс
+        $copy = new Copy();
+        $copy->process_id = 5;
+        $copy->name = "Звонок заказчику по номеру " . $phone->number;
+        $copy->save();
+
+        $phone->copy_id = $copy->id;
         $phone->worker_id = (int)$request->get('worker_id');
         $phone->save();
 
