@@ -22,7 +22,7 @@
                 {% for item in list %}
                     <tr>
                         <td>{{ item.created_at | date ("d.m H:i") }}</td>
-                        <td>
+                        <td class="text-nowrap">
                             {% if item.copy_id > 0 %}
                             <a href="{{ route('front_process_view', {id: item.copy_id}) }}" target="_blank"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {{ item.number }}</a>
                             {% else %}
