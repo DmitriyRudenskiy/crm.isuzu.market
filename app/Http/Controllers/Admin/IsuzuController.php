@@ -10,13 +10,22 @@ use Illuminate\Http\Request;
 class IsuzuController extends Controller
 {
 
-    public function index(Phones $repository, Workers $workersRepository)
+    public function index(Request $request, Phones $repository, Workers $workersRepository)
     {
-        $list = $repository->orderBy('id', 'desc')->paginate(15);
+        $query = trim($request->get('q'));
+
+        if (empty($query)) {
+            $list = $repository->orderBy('id', 'desc')->paginate(15);
+        } else {
+            $list = $repository->where('number', 'like', '%' . $query . '%')
+                ->orderBy('id', 'desc')
+                ->paginate(15);
+        }
 
         return view(
             'admin.isuzu.index',
             [
+                'query' => $query,
                 'list' => $list,
                 'email' => '',
                 'workers' => $workersRepository->all()
@@ -28,7 +37,35 @@ class IsuzuController extends Controller
     {
         $id = (int)$request->get('id');
         $phone = $repository->findOrFail($id);
+        $phone->worker_id = (int)$request->get('worker_id');
+        $phone->save();
 
+        $this->createProcess($phone);
+
+        return redirect()->back();
+    }
+
+    public function add(Workers $workersRepository)
+    {
+        return view(
+            'admin.isuzu.add' ,
+            [
+                'workers' => $workersRepository->all()
+            ]
+        );
+    }
+
+    public function insert(Request $request, Phones $repository)
+    {
+        $data = $request->only(["number", "worker_id", "source", "comment"]);
+        $phone = $repository->create($data);
+        $this->createProcess($phone);
+
+        return redirect()->route('admin_isuzu_index', ["success" => true]);
+    }
+
+    protected function createProcess(Phones $phone)
+    {
         //Создаём процесс
         $copy = new Copy();
         $copy->process_id = 5;
@@ -36,9 +73,6 @@ class IsuzuController extends Controller
         $copy->save();
 
         $phone->copy_id = $copy->id;
-        $phone->worker_id = (int)$request->get('worker_id');
         $phone->save();
-
-        return redirect()->back();
     }
 }

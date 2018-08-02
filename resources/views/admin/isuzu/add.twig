@@ -1,0 +1,42 @@
+{% extends "admin.layouts.app" %}
+
+{% block title %}Телефоны{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-5 col-md-7">
+            <h1>Добавить новый телефон</h1>
+
+            <form method="post" action="">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label>Номер телефона <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="number" value="" required>
+                    <span class="help-block">Добавьте номер телефона в произвольной форме</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Ответственный <span class="text-danger">*</span></label>
+                    <select class="form-control" name="worker_id" required>
+                        <option value="">--</option>
+                        {% for item in workers %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Источник телефона <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="source" value="" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Примечание</label>
+                    <textarea class="form-control" rows="7" name="comment"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Создать</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

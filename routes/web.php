@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Adm
     Route::group(['prefix' => 'isuzu', 'as' => 'isuzu_'], function () {
         Route::get('/', 'IsuzuController@index')->name('index');
         Route::post('/set', 'IsuzuController@set')->name('set');
+        Route::get('/add', 'IsuzuController@add')->name('add');
+        Route::post('/add', 'IsuzuController@insert')->name('insert');
     });
 
     Route::group(['prefix' => 'phones', 'as' => 'phones_'], function () {
