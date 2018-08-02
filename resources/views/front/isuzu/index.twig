@@ -1,0 +1,49 @@
+{% extends "front.layouts.app" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h2>Текст?</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            {% if list.total > 0 %}
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Добавлен</th>
+                        <th>Номер</th>
+                        <th>Источник</th>
+                        <th>Примечание</th>
+                        <th>Исполнитель</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                        <tr>
+                            <td>{{ item.created_at | date ("d.m H:i") }}</td>
+                            <td class="text-nowrap">{{ item.number }}</td>
+                            <td>{{ item.source }}</td>
+                            <td>{{ item.comment }}</td>
+                            <td>{{ item.worker }}</td>
+                            <td><a href="{{ route('public_show_task', {id: item.copy_id, token: token}) }}" target="_blank">подробнее</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {{ list.render() | raw }}
+            {% else %}
+                <div class="alert alert-danger" role="alert">Нет не одного телефонного номера</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            location.reload()
+        }, 60000);
+    </script>
+{% endblock %}
+

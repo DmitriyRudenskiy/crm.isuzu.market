@@ -1,0 +1,26 @@
+{% extends "front.layouts.app" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h2>Текст?</h2>
+    </div>
+
+    <div class="row">
+        {% for item in process.tasks %}
+            {% set status = item.getStatus(copy.id) %}
+            <div class="col-lg-12" style="border-bottom: 1px solid #ccc; margin-bottom: 24px; padding-bottom: 24px">
+                <p>{{ item.title }}</p>
+                {% if status is empty %}
+                    <div class="alert alert-success" role="alert">
+                    <p>{{ status.comment }}</p>
+                    <p>Выполнено<br>{{ status.is_ready | date("d.m.Y H:i") }}</p>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                    <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ожидает исполнения</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

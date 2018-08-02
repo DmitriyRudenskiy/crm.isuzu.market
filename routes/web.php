@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/tJEqL3LABZwq', 'IndexController@index');
+Route::get('/view/{token}/{id}', 'IsuzuController@view')->name('public_show_task');
+Route::get('/view/{token}', 'IsuzuController@index');
 
+Route::get('/tJEqL3LABZwq', 'IndexController@index');
 Route::get('/task/show/{id}', 'IndexController@show')->name('show_task');
 
 Route::get('/process/{id}', 'Front\ProcessController@index')->name('front_process');
