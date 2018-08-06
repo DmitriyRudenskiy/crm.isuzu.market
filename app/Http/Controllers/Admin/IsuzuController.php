@@ -70,7 +70,7 @@ class IsuzuController extends Controller
         //Создаём процесс
         $copy = new Copy();
         $copy->process_id = 5;
-        $copy->name = "Действия по клиенту " . $phone->number;
+        $copy->name = "Комментарии по клиенту " . $phone->number;
         $copy->save();
 
         $phone->copy_id = $copy->id;
