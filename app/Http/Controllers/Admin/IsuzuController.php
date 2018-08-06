@@ -78,7 +78,7 @@ class IsuzuController extends Controller
 
         $client = new ToptkClient();
         $message = sprintf(
-            "%s %s Список действий по клиенту: http://crm.isuzu.market/process/view/%d",
+            "%s // %s // Список действий по клиенту: http://crm.isuzu.market/process/view/%d",
             $phone->number,
             $phone->source,
             $copy->id
