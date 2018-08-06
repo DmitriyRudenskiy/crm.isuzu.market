@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Entities\Parts\Phones;
 use App\Entities\Process\Copy;
 use App\Entities\Process\Workers;
+use App\Service\Telegram\ToptkClient;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
@@ -74,5 +75,9 @@ class IsuzuController extends Controller
 
         $phone->copy_id = $copy->id;
         $phone->save();
+
+        $client = new ToptkClient();
+        $message = sprintf("%s Работай тут: /process/view/%d", "+7" . $phone, $copy->id);
+        $client->send($message);
     }
 }
