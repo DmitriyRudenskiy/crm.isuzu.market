@@ -9,6 +9,8 @@ use App\Entities\Process\Workers;
 use App\Service\Telegram;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Mail;
 
 class ProcessController extends Controller
 {
@@ -60,14 +62,23 @@ class ProcessController extends Controller
         $nasNewSystem = $phones->where("copy_id", $data["copy_id"])->first();
 
         if ($nasNewSystem !== null) {
-            $client = new Telegram\ToptkNotificationClient();
-            $message = sprintf(
+
+            $text = sprintf(
                 "По клиенту: %s новый комментарий: // %s // Список действий по клиенту: http://crm.isuzu.market/process/view/%d",
                 $nasNewSystem->source,
                 $data["comment"],
                 $data["copy_id"]
             );
-            $client->send($message);
+
+            // telegram
+            $client = new Telegram\ToptkNotificationClient();
+            $client->send($text);
+
+            // mailgun
+            Mail::raw($text, function (Message $message) {
+                $message->to(env('MAIL_TO_NOTIFICATION'));
+                $message->subject('Новый комментарий по клиенту');
+            });
         }
 
         return redirect()->route('front_process_view', ["id" => $data["copy_id"]]);

@@ -7,6 +7,8 @@ use App\Entities\Process\Workers;
 use App\Service\Telegram\ToptkClient;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Mail;
 
 class IsuzuController extends Controller
 {
@@ -76,7 +78,7 @@ class IsuzuController extends Controller
         $phone->copy_id = $copy->id;
         $phone->save();
 
-        $client = new ToptkClient();
+
         $message = sprintf(
             "%s // %s // Список действий по клиенту: http://crm.isuzu.market/process/view/%d",
             $phone->number,
@@ -84,6 +86,14 @@ class IsuzuController extends Controller
             $copy->id
         );
 
+        // telegram
+        $client = new ToptkClient();
         $client->send($message);
+
+        // mailgin
+        Mail::raw($message, function (Message $message) {
+            $message->to(env('MAIL_TO_NOTIFICATION'));
+            $message->subject('Новый клиент');
+        });
     }
 }
