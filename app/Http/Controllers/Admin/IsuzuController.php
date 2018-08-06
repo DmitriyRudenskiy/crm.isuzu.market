@@ -77,7 +77,7 @@ class IsuzuController extends Controller
         $phone->save();
 
         $client = new ToptkClient();
-        $message = sprintf("%s Работай тут: /process/view/%d", "+7" . $phone->number, $copy->id);
+        $message = sprintf("%s Работай тут: http://crm.isuzu.market/process/view/%d", "+7" . $phone->number, $copy->id);
         $client->send($message);
     }
 }
