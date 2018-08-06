@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/view/{token}/{id}', 'IsuzuController@view')->name('public_show_task');
 Route::get('/view/{token}', 'IsuzuController@index');

@@ -77,7 +77,7 @@ class ProcessController extends Controller
             // mailgun
             Mail::raw($text, function (Message $message) {
                 $message->to(env('MAIL_TO_NOTIFICATION'));
-                $message->subject('Новый комментарий по клиенту.');
+                $message->subject('Новый комментарий по клиенту');
             });
         }
 
