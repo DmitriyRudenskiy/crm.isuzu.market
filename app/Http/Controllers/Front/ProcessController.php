@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Front;
 
+use App\Entities\Parts\Phones;
 use App\Entities\Process\Copy;
 use App\Entities\Process\Process;
 use App\Entities\Process\Status;
@@ -41,7 +42,7 @@ class ProcessController extends Controller
         );
     }
 
-    public function task(Request $request, Status $statusRepository)
+    public function task(Request $request, Status $statusRepository, Phones $phones)
     {
         $now =  new \DateTime();
         $now->modify('+7 hours');
@@ -54,6 +55,19 @@ class ProcessController extends Controller
         ];
 
         $statusRepository->create($data);
+
+
+        $nasNewSystem = $phones->where("copy_id", $data["copy_id"])->first();
+
+        if ($nasNewSystem !== null) {
+            $client = new Telegram\ToptkNotificationClient();
+            $message = sprintf(
+                "Текст: %s, Линк: http://crm.isuzu.market/process/view/%d",
+                $data["comment"],
+                $data["copy_id"]
+            );
+            $client->send($message);
+        }
 
         return redirect()->route('front_process_view', ["id" => $data["copy_id"]]);
     }
