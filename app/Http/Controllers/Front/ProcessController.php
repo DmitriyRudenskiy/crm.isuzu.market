@@ -62,7 +62,8 @@ class ProcessController extends Controller
         if ($nasNewSystem !== null) {
             $client = new Telegram\ToptkNotificationClient();
             $message = sprintf(
-                "Текст: %s, Линк: http://crm.isuzu.market/process/view/%d",
+                "По клиенту: %s выполнено действие: %s Список действий по клиенту: %s",
+                $nasNewSystem->source,
                 $data["comment"],
                 $data["copy_id"]
             );
