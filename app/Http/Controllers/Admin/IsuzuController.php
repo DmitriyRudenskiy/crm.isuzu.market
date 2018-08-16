@@ -70,13 +70,14 @@ class IsuzuController extends Controller
 
     protected function createProcess(Phones $phone)
     {
+        $regionService = new GetRegionApi();
         try {
-            $regionService = new GetRegionApi();
             $phone->city = $regionService->get($phone->number);
-            $phone->save();
         } catch (\Exception $e) {
-
+            $phone->city = $e->getMessage();
         }
+
+        $phone->save();
 
         //Создаём процесс
         $copy = new Copy();
