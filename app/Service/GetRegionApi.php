@@ -7,7 +7,7 @@ class GetRegionApi
     public function get($number)
     {
         $data = [
-            "q" => "7" . $number,
+            "q" => "7" . substr($number, -10),
             "key" => env("KODY_KEY")
         ];
 
@@ -22,7 +22,7 @@ class GetRegionApi
         $json = json_decode($content);
 
         if (empty($json->numbers[0]->region)) {
-            return null;
+            return '-- ошибка --';
         }
 
         return $json->numbers[0]->region;

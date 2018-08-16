@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Entities\Parts\Phones;
 use App\Entities\Process\Copy;
 use App\Entities\Process\Workers;
+use App\Service\GetRegionApi;
 use App\Service\Telegram\ToptkClient;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
@@ -69,6 +70,14 @@ class IsuzuController extends Controller
 
     protected function createProcess(Phones $phone)
     {
+        try {
+            $regionService = new GetRegionApi();
+            $phone->city = $regionService->get($phone->number);
+            $phone->save();
+        } catch (\Exception $e) {
+
+        }
+
         //Создаём процесс
         $copy = new Copy();
         $copy->process_id = 5;

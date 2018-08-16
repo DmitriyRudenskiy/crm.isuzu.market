@@ -16,7 +16,7 @@
 
                 <div class="form-group">
                     <label>Ответственный <span class="text-danger">*</span></label>
-                    <select class="form-control" name="worker_id" required>
+                    <select class="form-control" name="worker_id">
                         <option value="">--</option>
                         {% for item in workers %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
