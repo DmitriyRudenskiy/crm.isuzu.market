@@ -73,6 +73,7 @@ class IsuzuController extends Controller
         $regionService = new GetRegionApi();
         try {
             $phone->city = $regionService->get($phone->number);
+            $phone->source .= ' ' . $phone->city;
         } catch (\Exception $e) {
             $phone->city = $e->getMessage();
         }
